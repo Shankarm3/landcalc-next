@@ -1,41 +1,42 @@
 import Navbar from "../../components/Navbar";
 import Converter from "../../components/Converter";
 
-// Function to capitalize first letters for clean SEO titles
 function capitalize(str) {
    if (!str) return "";
    return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-// 1. Dynamic SEO Metadata Generation
+// 1. Safe Metadata Generation
 export async function generateMetadata({ params }) {
-   const { from, to } = await params;
-
-   const fromUnit = capitalize(from);
-   const toUnit = capitalize(to);
+   // Await params safely in case Next.js treats it as a Promise
+   const resolvedParams = await params;
+   const from = resolvedParams?.from || "sqft";
+   const to = resolvedParams?.to || "gaj";
 
    return {
-      title: `${fromUnit} to ${toUnit} Converter | Accurate Land Calculator`,
-      description: `Instantly convert ${fromUnit} to ${toUnit}. Use our free smart land area calculator for precise regional conversions, formulas, and real estate calculations.`,
-      alternates: {
-         canonical: `https://yourdomain.com/${from}-to-${to}`,
-      },
+      title: `${capitalize(from)} to ${capitalize(to)} Converter | LandCalc`,
+      description: `Instantly convert ${capitalize(from)} to ${capitalize(to)}. Accurate regional land measurements and calculators.`,
    };
 }
 
-// 2. The Page Layout
+// 2. Main Page Component
 export default async function ConversionPage({ params }) {
-   const { from, to } = await params;
+   // Resolve params safely for the component
+   const resolvedParams = await params;
+   const from = resolvedParams?.from || "sqft";
+   const to = resolvedParams?.to || "gaj";
 
    return (
-      <main>
+      <main style={{ minHeight: "100vh", backgroundColor: "#f7fafc" }}>
          <Navbar />
-         <div style={{ padding: "2rem 1rem", textAlign: "center" }}>
+
+         <div style={{ padding: "3rem 1rem", textAlign: "center" }}>
             <h1
                style={{
                   fontSize: "2.5rem",
                   fontWeight: "bold",
                   marginBottom: "0.5rem",
+                  color: "#1a202c",
                }}
             >
                Smart {capitalize(from)} to {capitalize(to)} Converter
@@ -44,7 +45,7 @@ export default async function ConversionPage({ params }) {
                Convert regional land units accurately and instantly.
             </p>
 
-            {/* Pass props to Converter to automatically set dropdown defaults */}
+            {/* Pass the dynamic values cleanly into your client component */}
             <Converter defaultFrom={from} defaultTo={to} />
          </div>
       </main>
