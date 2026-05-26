@@ -7,7 +7,7 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
    const [fromUnit, setFromUnit] = useState(defaultFrom);
    const [toUnit, setToUnit] = useState(defaultTo);
    const [result, setResult] = useState(0);
-   const [isAnimating, setIsAnimating] = useState(false); // 🔥 Animation trigger state
+   const [isAnimating, setIsAnimating] = useState(false); // Controls the active pop scale effect
 
    useEffect(() => {
       setFromUnit(defaultFrom);
@@ -35,15 +35,15 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
       const valueInSqft = parseFloat(value) * (sqftMap[fromUnit] || 1);
       const finalValue = valueInSqft / (sqftMap[toUnit] || 1);
 
-      // 🔥 Trigger Animation: Pehle state ko true karenge fir value set karenge
+      // 🔥 Step 1: Pehle animation trigger state activate karenge
       setIsAnimating(true);
       setResult(finalValue.toFixed(2));
    }
 
-   // Reset animation switch after it finishes running (300ms)
+   // 🔥 Step 2: Animation running timer (200ms ke baad normal scale par wapas layega)
    useEffect(() => {
       if (isAnimating) {
-         const timer = setTimeout(() => setIsAnimating(false), 300);
+         const timer = setTimeout(() => setIsAnimating(false), 200);
          return () => clearTimeout(timer);
       }
    }, [isAnimating]);
@@ -59,7 +59,6 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
       boxSizing: "border-box",
       color: "#2d3748",
       backgroundColor: "#f8fafc",
-      transition: "border-color 0.2s ease",
    };
 
    return (
@@ -69,19 +68,6 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
             fontFamily: "system-ui, -apple-system, sans-serif",
          }}
       >
-         {/* 🔥 Injecting CSS Keyframes directly so you don't need external CSS files */}
-         <style>{`
-            @keyframes popScale {
-               0% { transform: scale(1); }
-               50% { transform: scale(1.08); color: #3182ce; }
-               100% { transform: scale(1); }
-            }
-            @keyframes slideReveal {
-               0% { opacity: 0; transform: translateY(8px); }
-               100% { opacity: 1; transform: translateY(0); }
-            }
-         `}</style>
-
          <h2
             style={{
                fontSize: "1.25rem",
@@ -182,15 +168,17 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
                cursor: "pointer",
                boxShadow: "0 4px 6px -1px rgba(49, 130, 206, 0.2)",
                marginBottom: "2rem",
-               transition: "all 0.2s ease",
+               transition: "transform 0.1s ease, background-color 0.2s",
             }}
+            onMouseDown={(e) => (e.target.style.transform = "scale(0.98)")} // Button click subtle press feedback
+            onMouseUp={(e) => (e.target.style.transform = "scale(1)")}
             onMouseOver={(e) => (e.target.style.backgroundColor = "#2b6cb0")}
             onMouseOut={(e) => (e.target.style.backgroundColor = "#3182ce")}
          >
             Convert Area
          </button>
 
-         {/* 🔥 Animated Converted Value Box */}
+         {/* 🔥 State-Driven Clean Animated Box (Using standard JS inline transitions) */}
          <div
             style={{
                backgroundColor: "#f7fafc",
@@ -198,8 +186,10 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
                borderRadius: "8px",
                textAlign: "center",
                border: "1px dashed #e2e8f0",
-               animation:
-                  result > 0 ? "slideReveal 0.4s ease-out forwards" : "none", // Card slide up on calculate
+               // Smooth upward slide reveal when values change
+               transform: result > 0 ? "translateY(0)" : "translateY(4px)",
+               opacity: result > 0 ? 1 : 0.9,
+               transition: "all 0.3s ease-out",
             }}
          >
             <h3
@@ -214,16 +204,17 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
             >
                Converted Value
             </h3>
+
             <div
                style={{
                   fontSize: "2.5rem",
                   fontWeight: "800",
-                  color: "#2d3748",
+                  // 🔥 Transition Logic: State active hote hi text size smoothly scale-up hokar dynamic blue chameleon color touch karega
+                  color: isAnimating ? "#3182ce" : "#2d3748",
+                  transform: isAnimating ? "scale(1.15)" : "scale(1)",
+                  transition:
+                     "transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.15s ease",
                   display: "inline-block",
-                  // 🔥 Pop-pulse animation links immediately upon state change
-                  animation: isAnimating
-                     ? "popScale 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
-                     : "none",
                }}
             >
                {result}
