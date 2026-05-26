@@ -64,6 +64,7 @@ export default function NewsPage() {
          if (!res.ok) throw new Error("API Limit or Error");
 
          const data = await res.json();
+         console.log(data);
          if (data.articles && data.articles.length > 0) {
             setArticles(data.articles);
          } else {
