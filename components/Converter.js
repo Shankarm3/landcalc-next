@@ -8,7 +8,6 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
    const [toUnit, setToUnit] = useState(defaultTo);
    const [result, setResult] = useState(0);
 
-   // Automatically update dropdown selections if the user changes pages via SEO URLs
    useEffect(() => {
       setFromUnit(defaultFrom);
       setToUnit(defaultTo);
@@ -20,27 +19,25 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
          return;
       }
 
-      // Base conversion layer: How many square feet are in exactly 1 of these units?
+      // 🔥 Updated Base Matrix: Added Uttarakhand Bigha Standard
       const sqftMap = {
          sqft: 1,
          gaj: 9,
          kanal: 5445,
-         bigha: 27225, // Changed from 27000 to the precise legal Pucca Bigha standard
+         bigha_up: 27225, // UP/Punjab precise Pucca Bigha
+         bigha_standard: 27000, // Standard common baseline
+         bigha_uk: 6804, // 🔥 Uttarakhand State Bigha (1 Acre = 6.40 UK Bigha)
+         bigha_bengal: 14400, // West Bengal / Kacha Bigha
          acre: 43560,
-         hectare: 107639, // 1 Hectare = 10,000 square meters ≈ 107,639 sq ft
+         hectare: 107639,
       };
 
-      // 1. Convert input value completely to its square feet equivalent
-      const valueInSqft = parseFloat(value) * sqftMap[fromUnit];
+      const valueInSqft = parseFloat(value) * (sqftMap[fromUnit] || 1);
+      const finalValue = valueInSqft / (sqftMap[toUnit] || 1);
 
-      // 2. Divide by target unit value to get final conversion
-      const finalValue = valueInSqft / sqftMap[toUnit];
-
-      // Clear out extreme decimals cleanly
       setResult(finalValue.toFixed(2));
    }
 
-   // Shared styling configuration for clean visual hierarchy
    const inputStyle = {
       width: "100%",
       padding: "0.75rem 1rem",
@@ -91,6 +88,7 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
             style={inputStyle}
          />
 
+         {/* From Unit Select */}
          <label
             style={{
                display: "block",
@@ -110,11 +108,16 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
             <option value="sqft">Square Feet (Sqft)</option>
             <option value="gaj">Gaj (Sq Yard)</option>
             <option value="kanal">Kanal</option>
-            <option value="bigha">Bigha</option>
+            <option value="bigha_up">UP Pucca Bigha</option>
+            <option value="bigha_uk">Uttarakhand Bigha</option>{" "}
+            {/* Added option */}
+            <option value="bigha_standard">Standard Bigha</option>
+            <option value="bigha_bengal">Bengal/Kacha Bigha</option>
             <option value="acre">Acre</option>
             <option value="hectare">Hectare</option>
          </select>
 
+         {/* To Unit Select */}
          <label
             style={{
                display: "block",
@@ -134,7 +137,11 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
             <option value="sqft">Square Feet (Sqft)</option>
             <option value="gaj">Gaj (Sq Yard)</option>
             <option value="kanal">Kanal</option>
-            <option value="bigha">Bigha</option>
+            <option value="bigha_up">UP Pucca Bigha</option>
+            <option value="bigha_uk">Uttarakhand Bigha</option>{" "}
+            {/* Added option */}
+            <option value="bigha_standard">Standard Bigha</option>
+            <option value="bigha_bengal">Bengal/Kacha Biri</option>
             <option value="acre">Acre</option>
             <option value="hectare">Hectare</option>
          </select>
@@ -151,12 +158,9 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
                border: "none",
                borderRadius: "8px",
                cursor: "pointer",
-               transition: "background-color 0.2s",
                boxShadow: "0 4px 6px -1px rgba(49, 130, 206, 0.2)",
                marginBottom: "2rem",
             }}
-            onMouseOver={(e) => (e.target.style.backgroundColor = "#2b6cb0")}
-            onMouseOut={(e) => (e.target.style.backgroundColor = "#3182ce")}
          >
             Convert Area
          </button>
