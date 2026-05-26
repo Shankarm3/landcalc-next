@@ -1,15 +1,13 @@
+"use client"; // Ab yeh page browser par real-time interact karega
+
+import { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 
-export const metadata = {
-   title: "Top 5 Daily National & International News | LandCalc",
-   description:
-      "Stay updated with live curated top 5 national, international, and infrastructure news updates updated dynamically.",
-};
+export default function NewsPage() {
+   const [articles, setArticles] = useState([]);
+   const [loading, setLoading] = useState(true);
 
-async function getLiveNews() {
-   const API_KEY = "fd703237c7afe02808e10e5c642bb4b9";
-
-   // 🔥 Shandar High-Quality Backup Data: Agar API response khali aaye toh yeh dikhega
+   // Static backup data: Agar API response empty aaye, limit khatam ho, ya network down ho
    const backupNews = [
       {
          title: "India's Infrastructure Growth: New Expressways Transforming Regional Real Estate Layouts",
@@ -22,7 +20,7 @@ async function getLiveNews() {
       {
          title: "Digital Land Records: Government Scales AI Integration to Secure Bhulekh Registries",
          description:
-            "State land revenue wings are moving to secure modern databases to make registry verification instant, direct, and completely scam-free.",
+            "State land revenue wings are moving to secure modern databases to make property registries transparent, instant, and scam-free.",
          source: { name: "TechIndia Infrastructure" },
          publishedAt: new Date().toISOString(),
          url: "https://gnews.io",
@@ -53,37 +51,39 @@ async function getLiveNews() {
       },
    ];
 
-   // GNews ke top-headlines business criteria ko call lagate hain (More reliable data stream)
-   const url = `https://gnews.io/api/v4/top-headlines?category=business&lang=en&country=in&max=5&apikey=${API_KEY}`;
+   // Main fetch function jo live database ko hit karegi
+   async function fetchLiveNews() {
+      setLoading(true);
+      const API_KEY = "fd703237c7afe02808e10e5c642bb4b9";
 
-   try {
-      const res = await fetch(url, {
-         next: { revalidate: 43200 }, // Caching for 12 hours
-      });
+      // Top business & industrial headlines parameter (More reliable live payload stream)
+      const url = `https://gnews.io/api/v4/top-headlines?category=business&lang=en&country=in&max=5&apikey=${API_KEY}`;
 
-      if (!res.ok) {
-         console.warn(
-            `API responded with status ${res.status}. Swapping to backup engine.`,
+      try {
+         const res = await fetch(url);
+         if (!res.ok) throw new Error("API Limit or Error");
+
+         const data = await res.json();
+         if (data.articles && data.articles.length > 0) {
+            setArticles(data.articles);
+         } else {
+            setArticles(backupNews);
+         }
+      } catch (error) {
+         console.error(
+            "Live fetch failed, matching with backup array stream:",
+            error,
          );
-         return backupNews;
+         setArticles(backupNews);
+      } finally {
+         setLoading(false);
       }
-
-      const data = await res.json();
-
-      // Agar data milta hai toh real dikhao, nahi toh backup par fall karo safely
-      if (data.articles && data.articles.length > 0) {
-         return data.articles;
-      }
-
-      return backupNews;
-   } catch (error) {
-      console.error("News fetch error, loading default array:", error);
-      return backupNews;
    }
-}
 
-export default async function NewsPage() {
-   const articles = await getLiveNews();
+   // Automatically loads data the millisecond the user visits the page
+   useEffect(() => {
+      fetchLiveNews();
+   }, []);
 
    return (
       <main
@@ -109,7 +109,7 @@ export default async function NewsPage() {
                <span
                   style={{
                      backgroundColor: "#ebf8ff",
-                     color: "#2b6cb0",
+                     color: "#3182ce",
                      padding: "0.35rem 0.85rem",
                      borderRadius: "20px",
                      fontSize: "0.85rem",
@@ -118,7 +118,7 @@ export default async function NewsPage() {
                      letterSpacing: "0.05em",
                   }}
                >
-                  Live Dashboard
+                  Live Client Feed
                </span>
                <h1
                   style={{
@@ -131,22 +131,34 @@ export default async function NewsPage() {
                   }}
                >
                   Today's Top{" "}
-                  <span style={{ color: "#3182ce" }}>5 Dynamic Updates</span>
+                  <span style={{ color: "#3182ce" }}>5 News Streams</span>
                </h1>
-               <p
+
+               {/* 🔥 Manual Action Trigger Button */}
+               <button
+                  onClick={fetchLiveNews}
+                  disabled={loading}
                   style={{
-                     fontSize: "1.05rem",
-                     color: "#4a5568",
-                     maxWidth: "600px",
-                     margin: "0 auto",
+                     marginTop: "1rem",
+                     padding: "0.5rem 1.25rem",
+                     backgroundColor: loading ? "#e2e8f0" : "#3182ce",
+                     color: loading ? "#a0aec0" : "#ffffff",
+                     border: "none",
+                     borderRadius: "6px",
+                     fontSize: "0.9rem",
+                     fontWeight: "600",
+                     cursor: loading ? "not-allowed" : "pointer",
+                     boxShadow: "0 2px 4px rgba(49, 130, 206, 0.15)",
+                     transition: "background-color 0.2s",
                   }}
                >
-                  Live automated micro-feed tracking national news, global
-                  shifts, and Indian infrastructure.
-               </p>
+                  {loading
+                     ? "Fetching Latest..."
+                     : "🔄 Click to Refresh Live Data"}
+               </button>
             </div>
 
-            {/* News Feed Stream */}
+            {/* News Feed Cards Layout */}
             <div
                style={{
                   display: "flex",
@@ -154,111 +166,138 @@ export default async function NewsPage() {
                   gap: "1.5rem",
                }}
             >
-               {articles.map((item, index) => (
-                  <article
-                     key={index}
-                     style={{
-                        backgroundColor: "#ffffff",
-                        padding: "2rem",
-                        borderRadius: "14px",
-                        border: "1px solid #e2e8f0",
-                        boxShadow:
-                           "0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02)",
-                        position: "relative",
-                     }}
-                  >
-                     {/* Badge Number */}
-                     <div
+               {!loading ? (
+                  articles.map((item, index) => (
+                     <article
+                        key={index}
                         style={{
-                           position: "absolute",
-                           left: "-12px",
-                           top: "22px",
-                           backgroundColor: "#3182ce",
-                           color: "#ffffff",
-                           width: "26px",
-                           height: "26px",
-                           borderRadius: "50%",
-                           display: "flex",
-                           alignItems: "center",
-                           justifyContent: "center",
-                           fontSize: "0.85rem",
-                           fontWeight: "700",
-                           boxShadow: "0 2px 4px rgba(49, 130, 206, 0.3)",
+                           backgroundColor: "#ffffff",
+                           padding: "2rem",
+                           borderRadius: "14px",
+                           border: "1px solid #e2e8f0",
+                           boxShadow:
+                              "0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02)",
+                           position: "relative",
                         }}
                      >
-                        {index + 1}
-                     </div>
-
-                     <div
-                        style={{
-                           display: "flex",
-                           justifyContent: "space-between",
-                           alignItems: "center",
-                           marginBottom: "0.5rem",
-                        }}
-                     >
-                        <span
+                        {/* Badge Indicator */}
+                        <div
                            style={{
-                              fontSize: "0.8rem",
-                              fontWeight: "600",
-                              color: "#718096",
-                              textTransform: "uppercase",
-                              letterSpacing: "0.05em",
+                              position: "absolute",
+                              left: "-12px",
+                              top: "22px",
+                              backgroundColor: "#3182ce",
+                              color: "#ffffff",
+                              width: "26px",
+                              height: "26px",
+                              borderRadius: "50%",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              fontSize: "0.85rem",
+                              fontWeight: "700",
+                              boxShadow: "0 2px 4px rgba(49, 130, 206, 0.3)",
                            }}
                         >
-                           {item.source?.name || "Live Source"}
-                        </span>
-                        <span style={{ fontSize: "0.8rem", color: "#a0aec0" }}>
-                           {item.publishedAt
-                              ? new Date(item.publishedAt).toLocaleDateString(
-                                   "en-IN",
-                                )
-                              : ""}
-                        </span>
-                     </div>
+                           {index + 1}
+                        </div>
 
-                     <h2
-                        style={{
-                           fontSize: "1.25rem",
-                           fontWeight: "700",
-                           color: "#1a202c",
-                           lineHeight: "1.4",
-                           marginBottom: "0.75rem",
-                        }}
-                     >
-                        {item.title}
-                     </h2>
+                        <div
+                           style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                              marginBottom: "0.5rem",
+                           }}
+                        >
+                           <span
+                              style={{
+                                 fontSize: "0.8rem",
+                                 fontWeight: "600",
+                                 color: "#718096",
+                                 textTransform: "uppercase",
+                                 letterSpacing: "0.05em",
+                              }}
+                           >
+                              {item.source?.name || "Live Stream"}
+                           </span>
+                           <span
+                              style={{ fontSize: "0.8rem", color: "#a0aec0" }}
+                           >
+                              {item.publishedAt
+                                 ? new Date(
+                                      item.publishedAt,
+                                   ).toLocaleDateString("en-IN")
+                                 : ""}
+                           </span>
+                        </div>
 
-                     <p
+                        <h2
+                           style={{
+                              fontSize: "1.25rem",
+                              fontWeight: "700",
+                              color: "#1a202c",
+                              lineHeight: "1.4",
+                              marginBottom: "0.75rem",
+                           }}
+                        >
+                           {item.title}
+                        </h2>
+
+                        <p
+                           style={{
+                              color: "#4a5568",
+                              fontSize: "0.95rem",
+                              lineHeight: "1.6",
+                              marginBottom: "1rem",
+                           }}
+                        >
+                           {item.description}
+                        </p>
+
+                        <a
+                           href={item.url}
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           style={{
+                              fontSize: "0.9rem",
+                              color: "#3182ce",
+                              textDecoration: "underline",
+                              fontWeight: "600",
+                              display: "inline-block",
+                           }}
+                        >
+                           Read full article via source →
+                        </a>
+                     </article>
+                  ))
+               ) : (
+                  <div
+                     style={{
+                        textAlign: "center",
+                        padding: "3rem",
+                        color: "#718096",
+                     }}
+                  >
+                     <div
                         style={{
-                           color: "#4a5568",
-                           fontSize: "0.95rem",
-                           lineHeight: "1.6",
+                           display: "inline-block",
+                           width: "2rem",
+                           height: "2rem",
+                           border: "3px solid #e2e8f0",
+                           borderTopColor: "#3182ce",
+                           borderRadius: "50%",
+                           animation: "spin 1s linear infinite",
                            marginBottom: "1rem",
                         }}
-                     >
-                        {item.description}
+                     ></div>
+                     <p style={{ fontSize: "1rem", fontWeight: "500" }}>
+                        Connecting to live news databases...
                      </p>
-
-                     <a
-                        href={item.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{
-                           fontSize: "0.9rem",
-                           color: "#3182ce",
-                           textDecoration: "underline", // Keep it cleanly underlined directly
-                           fontWeight: "600",
-                           display: "inline-block",
-                        }}
-                     >
-                        Read full article via source →
-                     </a>
-                  </article>
-               ))}
+                  </div>
+               )}
             </div>
 
-            {/* Bottom Notice */}
             <p
                style={{
                   textAlign: "center",
@@ -267,8 +306,7 @@ export default async function NewsPage() {
                   marginTop: "3rem",
                }}
             >
-               Feed synchronizes automatically using encrypted global
-               syndication streams.
+               Data pulled via live global JSON streams directly on-client.
             </p>
          </div>
       </main>
