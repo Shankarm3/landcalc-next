@@ -25,9 +25,9 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
          sqft: 1,
          gaj: 9,
          kanal: 5445,
-         bigha: 27000, // Standard Western UP Bigha benchmark
+         bigha: 27225, // Changed from 27000 to the precise legal Pucca Bigha standard
          acre: 43560,
-         hectare: 107639,
+         hectare: 107639, // 1 Hectare = 10,000 square meters ≈ 107,639 sq ft
       };
 
       // 1. Convert input value completely to its square feet equivalent
