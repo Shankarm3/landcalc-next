@@ -3,8 +3,7 @@ import Navbar from "../components/Navbar";
 import Converter from "../components/Converter";
 
 export default function Home() {
-   const units = ["sqft", "gaj", "kanal", "bigha", "acre"];
-
+   const units = ["sqft", "gaj", "kanal", "bigha", "acre", "hectare"];
    const formatLabel = (unit) =>
       unit === "sqft" ? "Sqft" : unit.charAt(0).toUpperCase() + unit.slice(1);
 

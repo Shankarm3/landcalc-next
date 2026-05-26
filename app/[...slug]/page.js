@@ -12,6 +12,8 @@ const unitDescriptions = {
    kanal: "Kanal is a classic regional land measurement unit commonly used in northern states like Punjab and Haryana, traditionally equating to 1/8 of an acre.",
    bigha: "Bigha is a highly popular traditional land unit used widely across states like Uttar Pradesh, Punjab, Bihar, and Rajasthan. Note that its size can vary significantly by region.",
    acre: "Acre is an internationally recognized standard unit used globally and across India to measure large agricultural fields and extensive commercial land tracts.",
+   hectare:
+      "Hectare (ha) is the official metric system unit used by Indian state governments and land registry departments (Bhulekh) to document agricultural property deeds.",
 };
 
 export async function generateMetadata({ params }) {
@@ -24,7 +26,7 @@ export async function generateMetadata({ params }) {
 
    return {
       title: `${capitalize(from)} to ${capitalize(to)} Converter | LandCalc`,
-      description: `Instantly convert ${capitalize(from)} to ${capitalize(to)}. Learn about regional definitions, formulas, and calculate land area accurately.`,
+      description: `Instantly convert ${capitalize(from)} to ${capitalize(to)}. Learn about regional definitions, official government formulas, and calculate land area accurately.`,
    };
 }
 
@@ -167,7 +169,7 @@ export default async function ConversionPage({ params }) {
                            marginBottom: "1rem",
                         }}
                      >
-                        Regional Definitions & State Benchmarks
+                        Official Government Registry Definitions (1 Hectare)
                      </h3>
                      <div
                         style={{
@@ -204,7 +206,7 @@ export default async function ConversionPage({ params }) {
                                        fontWeight: "600",
                                     }}
                                  >
-                                    Standard Local Definition
+                                    Official Conversion Value
                                  </th>
                               </tr>
                            </thead>
@@ -226,8 +228,8 @@ export default async function ConversionPage({ params }) {
                                        borderBottom: "1px solid #e2e8f0",
                                     }}
                                  >
-                                    1 Pucca Bigha is commonly stabilized at
-                                    27,000 Sq. Ft.
+                                    1 Hectare is officially documented as
+                                    exactly <b>3.9537 Pucca Bighas</b>.
                                  </td>
                               </tr>
                               <tr
@@ -247,8 +249,8 @@ export default async function ConversionPage({ params }) {
                                        borderBottom: "1px solid #e2e8f0",
                                     }}
                                  >
-                                    Land systems scale 1 Kanal exactly to 5,445
-                                    Sq. Ft. (equal to 20 Marlas).
+                                    1 Hectare equals exactly{" "}
+                                    <b>19.7684 Kanals</b>.
                                  </td>
                               </tr>
                               <tr
@@ -260,7 +262,7 @@ export default async function ConversionPage({ params }) {
                                        borderBottom: "1px solid #e2e8f0",
                                     }}
                                  >
-                                    <b>Rajasthan</b>
+                                    <b>Global Standard</b>
                                  </td>
                                  <td
                                     style={{
@@ -268,19 +270,8 @@ export default async function ConversionPage({ params }) {
                                        borderBottom: "1px solid #e2e8f0",
                                     }}
                                  >
-                                    1 Pucca Bigha equates to 27,225 Sq. Ft.,
-                                    whereas 1 Kutcha Bigha is 9,075 Sq. Ft.
-                                 </td>
-                              </tr>
-                              <tr
-                                 style={{ transition: "background-color 0.2s" }}
-                              >
-                                 <td style={{ padding: "1rem" }}>
-                                    <b>Delhi NCR</b>
-                                 </td>
-                                 <td style={{ padding: "1rem" }}>
-                                    1 Gaj is widely transacted as exactly 9
-                                    Square Feet.
+                                    1 Hectare equals <b>2.471 Acres</b> or{" "}
+                                    <b>107,639 Square Feet</b>.
                                  </td>
                               </tr>
                            </tbody>

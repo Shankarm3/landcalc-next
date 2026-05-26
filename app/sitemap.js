@@ -1,8 +1,7 @@
 export default async function sitemap() {
    // Use your real production URL here so Googlebot knows where to look!
    const baseUrl = "https://landcalc-next-4yjv.vercel.app";
-   const units = ["sqft", "gaj", "kanal", "bigha", "acre"];
-
+   const units = ["sqft", "gaj", "kanal", "bigha", "acre", "hectare"];
    const routes = [
       {
          url: baseUrl,

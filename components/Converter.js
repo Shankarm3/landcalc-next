@@ -23,10 +23,11 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
       // Base conversion layer: How many square feet are in exactly 1 of these units?
       const sqftMap = {
          sqft: 1,
-         gaj: 9, // 1 Gaj = 9 sqft
-         kanal: 5445, // 1 Kanal = 5445 sqft
-         bigha: 27225, // 1 Standard Bigha = 27225 sqft
-         acre: 43560, // 1 Acre = 43560 sqft
+         gaj: 9,
+         kanal: 5445,
+         bigha: 27000, // Standard Western UP Bigha benchmark
+         acre: 43560,
+         hectare: 107639,
       };
 
       // 1. Convert input value completely to its square feet equivalent
