@@ -10,18 +10,8 @@ export default function Home() {
       unit === "sqft" ? "Sqft" : unit.charAt(0).toUpperCase() + unit.slice(1);
 
    return (
-      <main
-         style={{
-            minHeight: "100vh",
-            boxSizing: "border-box",
-            fontFamily: "system-ui, -apple-system, sans-serif",
-            // 🔥 SECURE HTTPS FIX: Standard hyper-responsive landscape image used instead of insecure http
-            backgroundImage: `linear-gradient(180deg, rgba(26, 32, 44, 0.82) 0%, rgba(45, 55, 72, 0.5) 100%), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1600&auto=format&fit=crop')`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundAttachment: "fixed",
-         }}
-      >
+      // Cleaned wrapper component inheriting layout style
+      <div style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
          <Navbar />
 
          <div
@@ -151,6 +141,6 @@ export default function Home() {
                </div>
             </footer>
          </div>
-      </main>
+      </div>
    );
 }
