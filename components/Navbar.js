@@ -36,6 +36,17 @@ export default function Navbar() {
             }}
          >
             <Link
+               href="/news"
+               style={{
+                  color: "#e2e8f0",
+                  textDecoration: "none",
+                  fontSize: "0.95rem",
+                  fontWeight: "500",
+               }}
+            >
+               Top 5 News
+            </Link>
+            <Link
                href="/"
                style={{
                   color: "#e2e8f0",
