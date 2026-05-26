@@ -247,15 +247,10 @@ export default async function NewsPage() {
                         style={{
                            fontSize: "0.9rem",
                            color: "#3182ce",
-                           textDecoration: "none",
+                           textDecoration: "underline", // Keep it cleanly underlined directly
                            fontWeight: "600",
+                           display: "inline-block",
                         }}
-                        onMouseOver={(e) =>
-                           (e.target.style.textDecoration = "underline")
-                        }
-                        onMouseOut={(e) =>
-                           (e.target.style.textDecoration = "none")
-                        }
                      >
                         Read full article via source →
                      </a>
