@@ -5,7 +5,6 @@ import Converter from "../components/Converter";
 export default function Home() {
    const units = ["sqft", "gaj", "kanal", "bigha", "acre"];
 
-   // Helper function to make link texts look clean (e.g., "Kanal to Sqft")
    const formatLabel = (unit) =>
       unit === "sqft" ? "Sqft" : unit.charAt(0).toUpperCase() + unit.slice(1);
 
@@ -17,7 +16,24 @@ export default function Home() {
             <Converter />
          </div>
 
-         {/* SEO Internal Linking Section */}
+         {/* Dynamic CSS Styling Injector */}
+         <style
+            dangerouslySetInnerHTML={{
+               __html: `
+        .seo-link {
+          color: #4a5568;
+          text-decoration: none;
+          font-size: 0.95rem;
+          transition: color 0.2s ease;
+        }
+        .seo-link:hover {
+          color: #3182ce !important;
+        }
+      `,
+            }}
+         />
+
+         {/* SEO Internal Linking Footer Section */}
          <footer
             style={{
                maxWidth: "1200px",
@@ -51,18 +67,7 @@ export default function Home() {
                            <Link
                               key={`${from}-to-${to}`}
                               href={`/${from}-to-${to}`}
-                              style={{
-                                 color: "#4a5568",
-                                 textDecoration: "none",
-                                 fontSize: "0.95rem",
-                                 transition: "color 0.2s",
-                              }}
-                              onMouseOver={(e) =>
-                                 (e.target.style.color = "#3182ce")
-                              }
-                              onMouseOut={(e) =>
-                                 (e.target.style.color = "#4a5568")
-                              }
+                              className="seo-link"
                            >
                               {formatLabel(from)} to {formatLabel(to)} Converter
                            </Link>
