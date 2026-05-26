@@ -1,35 +1,29 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation"; // 🔥 Active path track karne ke liye hook
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
-   const pathname = usePathname(); // Yeh aapko batayega current page ka link kya hai
+   const pathname = usePathname();
 
-   // Helper function jo check karega ki kaunsa tab active hai aur uske hisab se dynamic styling dega
-   const getLinkStyle = (path, isButton = false) => {
+   // Helper function jo har ek button ko dynamic background aur text styling dega
+   const getButtonStyle = (path) => {
       const isActive = pathname === path;
 
-      if (isButton) {
-         return {
-            color: "#f7fafc",
-            backgroundColor: isActive ? "#2b6cb0" : "#4a5568", // Active hai toh bright blue, nahi toh neutral gray
-            padding: "0.35rem 0.65rem",
-            borderRadius: "6px",
-            textDecoration: "none",
-            fontSize: "0.85rem",
-            fontWeight: "700",
-            transition: "background-color 0.2s",
-         };
-      }
-
       return {
-         color: isActive ? "#63b3ed" : "#e2e8f0", // Active tab text soft blue dikhega, baaki links silver-white
+         color: "#ffffff",
+         // 🔥 Active tab bright blue hoga, baaki saare clean slate gray buttons dikhenge
+         backgroundColor: isActive ? "#2b6cb0" : "#2d3748",
+         padding: "0.4rem 0.75rem",
+         borderRadius: "6px",
          textDecoration: "none",
          fontSize: "0.85rem",
          fontWeight: isActive ? "700" : "600",
          whiteSpace: "nowrap",
-         transition: "color 0.2s",
+         border: isActive ? "1px solid #63b3ed" : "1px solid #4a5568",
+         boxShadow: isActive ? "0 2px 4px rgba(49, 130, 206, 0.2)" : "none",
+         transition: "all 0.2s ease",
+         display: "inline-block",
       };
    };
 
@@ -52,7 +46,7 @@ export default function Navbar() {
                flexWrap: "wrap",
                alignItems: "center",
                justifyContent: "space-between",
-               gap: "1rem",
+               gap: "1.25rem",
             }}
          >
             {/* Logo / Brand Name */}
@@ -69,38 +63,37 @@ export default function Navbar() {
                Land<span style={{ color: "#3182ce" }}>Calc</span>
             </Link>
 
-            {/* Links Container */}
+            {/* 🔥 Buttons Container Layout */}
             <div
                style={{
                   display: "flex",
                   flexWrap: "wrap",
                   alignItems: "center",
-                  gap: "clamp(0.5rem, 3vw, 1.25rem)",
+                  gap: "0.6rem", // Buttons ke beech ka spacing tight aur clean rakha hai
                }}
             >
-               {/* 🔥 Pura links design ab dynamic active path check karega */}
-               <Link href="/news" style={getLinkStyle("/news", true)}>
-                  📰 Top 5 News
+               <Link href="/" style={getButtonStyle("/")}>
+                  🏠 Home
                </Link>
 
-               <Link href="/" style={getLinkStyle("/")}>
-                  Home
+               <Link href="/news" style={getButtonStyle("/news")}>
+                  📰 Top 5 News
                </Link>
 
                <Link
                   href="/bigha-to-kanal"
-                  style={getLinkStyle("/bigha-to-kanal")}
+                  style={getButtonStyle("/bigha-to-kanal")}
                >
                   Bigha to Kanal
                </Link>
 
-               <Link href="/sqft-to-gaj" style={getLinkStyle("/sqft-to-gaj")}>
+               <Link href="/sqft-to-gaj" style={getButtonStyle("/sqft-to-gaj")}>
                   Sqft to Gaj
                </Link>
 
                <Link
                   href="/kanal-to-acre"
-                  style={getLinkStyle("/kanal-to-acre")}
+                  style={getButtonStyle("/kanal-to-acre")}
                >
                   Kanal to Acre
                </Link>
