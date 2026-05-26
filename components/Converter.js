@@ -7,6 +7,7 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
    const [fromUnit, setFromUnit] = useState(defaultFrom);
    const [toUnit, setToUnit] = useState(defaultTo);
    const [result, setResult] = useState(0);
+   const [isAnimating, setIsAnimating] = useState(false); // 🔥 Animation trigger state
 
    useEffect(() => {
       setFromUnit(defaultFrom);
@@ -19,15 +20,14 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
          return;
       }
 
-      // 🔥 Updated Base Matrix: Added Uttarakhand Bigha Standard
       const sqftMap = {
          sqft: 1,
          gaj: 9,
          kanal: 5445,
-         bigha_up: 27225, // UP/Punjab precise Pucca Bigha
-         bigha_standard: 27000, // Standard common baseline
-         bigha_uk: 6804, // 🔥 Uttarakhand State Bigha (1 Acre = 6.40 UK Bigha)
-         bigha_bengal: 14400, // West Bengal / Kacha Bigha
+         bigha_up: 27225,
+         bigha_standard: 27000,
+         bigha_uk: 6804,
+         bigha_bengal: 14400,
          acre: 43560,
          hectare: 107639,
       };
@@ -35,8 +35,18 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
       const valueInSqft = parseFloat(value) * (sqftMap[fromUnit] || 1);
       const finalValue = valueInSqft / (sqftMap[toUnit] || 1);
 
+      // 🔥 Trigger Animation: Pehle state ko true karenge fir value set karenge
+      setIsAnimating(true);
       setResult(finalValue.toFixed(2));
    }
+
+   // Reset animation switch after it finishes running (300ms)
+   useEffect(() => {
+      if (isAnimating) {
+         const timer = setTimeout(() => setIsAnimating(false), 300);
+         return () => clearTimeout(timer);
+      }
+   }, [isAnimating]);
 
    const inputStyle = {
       width: "100%",
@@ -49,6 +59,7 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
       boxSizing: "border-box",
       color: "#2d3748",
       backgroundColor: "#f8fafc",
+      transition: "border-color 0.2s ease",
    };
 
    return (
@@ -58,6 +69,19 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
             fontFamily: "system-ui, -apple-system, sans-serif",
          }}
       >
+         {/* 🔥 Injecting CSS Keyframes directly so you don't need external CSS files */}
+         <style>{`
+            @keyframes popScale {
+               0% { transform: scale(1); }
+               50% { transform: scale(1.08); color: #3182ce; }
+               100% { transform: scale(1); }
+            }
+            @keyframes slideReveal {
+               0% { opacity: 0; transform: translateY(8px); }
+               100% { opacity: 1; transform: translateY(0); }
+            }
+         `}</style>
+
          <h2
             style={{
                fontSize: "1.25rem",
@@ -88,7 +112,7 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
             style={inputStyle}
          />
 
-         {/* From Unit Select */}
+         {/* From Unit */}
          <label
             style={{
                display: "block",
@@ -109,15 +133,14 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
             <option value="gaj">Gaj (Sq Yard)</option>
             <option value="kanal">Kanal</option>
             <option value="bigha_up">UP Pucca Bigha</option>
-            <option value="bigha_uk">Uttarakhand Bigha</option>{" "}
-            {/* Added option */}
+            <option value="bigha_uk">Uttarakhand Bigha</option>
             <option value="bigha_standard">Standard Bigha</option>
             <option value="bigha_bengal">Bengal/Kacha Bigha</option>
             <option value="acre">Acre</option>
             <option value="hectare">Hectare</option>
          </select>
 
-         {/* To Unit Select */}
+         {/* To Unit */}
          <label
             style={{
                display: "block",
@@ -138,10 +161,9 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
             <option value="gaj">Gaj (Sq Yard)</option>
             <option value="kanal">Kanal</option>
             <option value="bigha_up">UP Pucca Bigha</option>
-            <option value="bigha_uk">Uttarakhand Bigha</option>{" "}
-            {/* Added option */}
+            <option value="bigha_uk">Uttarakhand Bigha</option>
             <option value="bigha_standard">Standard Bigha</option>
-            <option value="bigha_bengal">Bengal/Kacha Biri</option>
+            <option value="bigha_bengal">Bengal/Kacha Bigha</option>
             <option value="acre">Acre</option>
             <option value="hectare">Hectare</option>
          </select>
@@ -160,11 +182,15 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
                cursor: "pointer",
                boxShadow: "0 4px 6px -1px rgba(49, 130, 206, 0.2)",
                marginBottom: "2rem",
+               transition: "all 0.2s ease",
             }}
+            onMouseOver={(e) => (e.target.style.backgroundColor = "#2b6cb0")}
+            onMouseOut={(e) => (e.target.style.backgroundColor = "#3182ce")}
          >
             Convert Area
          </button>
 
+         {/* 🔥 Animated Converted Value Box */}
          <div
             style={{
                backgroundColor: "#f7fafc",
@@ -172,6 +198,8 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
                borderRadius: "8px",
                textAlign: "center",
                border: "1px dashed #e2e8f0",
+               animation:
+                  result > 0 ? "slideReveal 0.4s ease-out forwards" : "none", // Card slide up on calculate
             }}
          >
             <h3
@@ -188,9 +216,14 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
             </h3>
             <div
                style={{
-                  fontSize: "2.25rem",
+                  fontSize: "2.5rem",
                   fontWeight: "800",
                   color: "#2d3748",
+                  display: "inline-block",
+                  // 🔥 Pop-pulse animation links immediately upon state change
+                  animation: isAnimating
+                     ? "popScale 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+                     : "none",
                }}
             >
                {result}
