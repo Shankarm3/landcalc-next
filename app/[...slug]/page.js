@@ -100,6 +100,130 @@ export default async function ConversionPage({ params }) {
                   conversions instantly without needing complex manual math
                   calculations.
                </p>
+
+               {/* --- RENDERED STATE BREAKDOWN TABLE ADDED HERE --- */}
+               <div style={{ marginTop: "2.5rem", overflowX: "auto" }}>
+                  <h3
+                     style={{
+                        fontSize: "1.2rem",
+                        fontWeight: "600",
+                        color: "#2d3748",
+                        marginBottom: "0.75rem",
+                     }}
+                  >
+                     Regional Values & Indian State Variations
+                  </h3>
+                  <table
+                     style={{
+                        width: "100%",
+                        borderCollapse: "collapse",
+                        textAlign: "left",
+                        fontSize: "0.9rem",
+                     }}
+                  >
+                     <thead>
+                        <tr style={{ backgroundColor: "#edf2f7" }}>
+                           <th
+                              style={{
+                                 padding: "0.75rem 0.5rem",
+                                 borderBottom: "2px solid #e2e8f0",
+                                 color: "#4a5568",
+                              }}
+                           >
+                              State / Region
+                           </th>
+                           <th
+                              style={{
+                                 padding: "0.75rem 0.5rem",
+                                 borderBottom: "2px solid #e2e8f0",
+                                 color: "#4a5568",
+                              }}
+                           >
+                              Standard Local Definition
+                           </th>
+                        </tr>
+                     </thead>
+                     <tbody style={{ color: "#4a5568" }}>
+                        <tr>
+                           <td
+                              style={{
+                                 padding: "0.75rem 0.5rem",
+                                 borderBottom: "1px solid #e2e8f0",
+                              }}
+                           >
+                              <b>Uttar Pradesh (UP)</b>
+                           </td>
+                           <td
+                              style={{
+                                 padding: "0.75rem 0.5rem",
+                                 borderBottom: "1px solid #e2e8f0",
+                              }}
+                           >
+                              1 Pucca Bigha is commonly stabilized at 27,000 Sq.
+                              Ft.
+                           </td>
+                        </tr>
+                        <tr>
+                           <td
+                              style={{
+                                 padding: "0.75rem 0.5rem",
+                                 borderBottom: "1px solid #e2e8f0",
+                              }}
+                           >
+                              <b>Punjab & Haryana</b>
+                           </td>
+                           <td
+                              style={{
+                                 padding: "0.75rem 0.5rem",
+                                 borderBottom: "1px solid #e2e8f0",
+                              }}
+                           >
+                              Land systems scale 1 Kanal exactly to 5,445 Sq.
+                              Ft. (equal to 20 Marlas).
+                           </td>
+                        </tr>
+                        <tr>
+                           <td
+                              style={{
+                                 padding: "0.75rem 0.5rem",
+                                 borderBottom: "1px solid #e2e8f0",
+                              }}
+                           >
+                              <b>Rajasthan</b>
+                           </td>
+                           <td
+                              style={{
+                                 padding: "0.75rem 0.5rem",
+                                 borderBottom: "1px solid #e2e8f0",
+                              }}
+                           >
+                              1 Pucca Bigha equates to 27,225 Sq. Ft., whereas 1
+                              Kutcha Bigha is 9,075 Sq. Ft.
+                           </td>
+                        </tr>
+                        <tr>
+                           <td
+                              style={{
+                                 padding: "0.75rem 0.5rem",
+                                 borderBottom: "1px solid #e2e8f0",
+                              }}
+                           >
+                              <b>Delhi NCR</b>
+                           </td>
+                           <td
+                              style={{
+                                 padding: "0.75rem 0.5rem",
+                                 borderBottom: "1px solid #e2e8f0",
+                              }}
+                           >
+                              1 Gaj is widely transacted as exactly 9 Square
+                              Feet.
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               {/* ------------------------------------------------- */}
             </section>
          </div>
       </main>
