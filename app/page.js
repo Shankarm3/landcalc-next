@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Converter from "../components/Converter";
@@ -11,10 +13,13 @@ export default function Home() {
       <main
          style={{
             minHeight: "100vh",
-            backgroundColor: "#f8fafc",
-            backgroundImage:
-               "linear-gradient(180deg, #edf2f7 0%, #f8fafc 400px)",
+            boxSizing: "border-box",
             fontFamily: "system-ui, -apple-system, sans-serif",
+            // 🔥 Option 2 Fix: Applied heavy custom alpha mask overlay with the agricultural land photo
+            backgroundImage: `linear-gradient(180deg, rgba(26, 32, 44, 0.85) 0%, rgba(45, 55, 72, 0.5) 100%), url('http://googleusercontent.com/image_collection/image_retrieval/5023133415723375073_0')`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundAttachment: "fixed",
          }}
       >
          <Navbar />
@@ -34,18 +39,20 @@ export default function Home() {
                      fontWeight: "800",
                      letterSpacing: "-0.025em",
                      marginBottom: "0.75rem",
-                     color: "#1a202c",
+                     color: "#ffffff", // 🔥 Switched to pure white for perfect background contrast
+                     textShadow: "0 2px 4px rgba(0,0,0,0.4)",
                   }}
                >
-                  Land<span style={{ color: "#3182ce" }}>Calc</span> Area
+                  Land<span style={{ color: "#63b3ed" }}>Calc</span> Area
                   Converter
                </h1>
                <p
                   style={{
                      fontSize: "1.1rem",
-                     color: "#4a5568",
+                     color: "#e2e8f0", // 🔥 Premium silver-gray text shade for visibility
                      maxWidth: "600px",
                      margin: "0 auto",
+                     textShadow: "0 1px 2px rgba(0,0,0,0.3)",
                   }}
                >
                   Convert between regional Indian land units like Bigha, Kanal,
@@ -58,12 +65,13 @@ export default function Home() {
                style={{
                   maxWidth: "520px",
                   margin: "0 auto 4rem",
-                  backgroundColor: "#ffffff",
+                  backgroundColor: "rgba(255, 255, 255, 0.98)", // 🔥 Solid glass tint container
                   padding: "2.5rem 2rem",
                   borderRadius: "16px",
                   boxShadow:
-                     "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05)",
-                  border: "1px solid #e2e8f0",
+                     "0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.15)",
+                  backdropFilter: "blur(8px)",
+                  boxSizing: "border-box",
                }}
             >
                <Converter />
@@ -74,12 +82,12 @@ export default function Home() {
                dangerouslySetInnerHTML={{
                   __html: `
                   .seo-link {
-                     color: #4a5568;
+                     color: #2d3748 !important; /* Enhanced grid link text clarity */
                      text-decoration: none;
                      font-size: 0.95rem;
                      transition: all 0.2s ease;
                      padding: 0.5rem;
-                     borderRadius: 6px;
+                     border-radius: 6px;
                   }
                   .seo-link:hover {
                      color: #3182ce !important;
@@ -94,11 +102,13 @@ export default function Home() {
             <footer
                style={{
                   maxWidth: "100%",
-                  backgroundColor: "#ffffff",
+                  backgroundColor: "rgba(255, 255, 255, 0.96)", // 🔥 Soft frost footer overlay card
                   padding: "2.5rem",
                   borderRadius: "16px",
-                  boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.03)",
-                  border: "1px solid #e2e8f0",
+                  boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+                  backdropFilter: "blur(6px)",
+                  border: "1px solid rgba(226, 232, 240, 0.8)",
+                  boxSizing: "border-box",
                }}
             >
                <h3
