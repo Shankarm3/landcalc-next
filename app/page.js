@@ -15,8 +15,8 @@ export default function Home() {
             minHeight: "100vh",
             boxSizing: "border-box",
             fontFamily: "system-ui, -apple-system, sans-serif",
-            // 🔥 Option 2 Fix: Applied heavy custom alpha mask overlay with the agricultural land photo
-            backgroundImage: `linear-gradient(180deg, rgba(26, 32, 44, 0.85) 0%, rgba(45, 55, 72, 0.5) 100%), url('http://googleusercontent.com/image_collection/image_retrieval/5023133415723375073_0')`,
+            // 🔥 SECURE HTTPS FIX: Standard hyper-responsive landscape image used instead of insecure http
+            backgroundImage: `linear-gradient(180deg, rgba(26, 32, 44, 0.82) 0%, rgba(45, 55, 72, 0.5) 100%), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1600&auto=format&fit=crop')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundAttachment: "fixed",
@@ -39,8 +39,8 @@ export default function Home() {
                      fontWeight: "800",
                      letterSpacing: "-0.025em",
                      marginBottom: "0.75rem",
-                     color: "#ffffff", // 🔥 Switched to pure white for perfect background contrast
-                     textShadow: "0 2px 4px rgba(0,0,0,0.4)",
+                     color: "#ffffff",
+                     textShadow: "0 2px 5px rgba(0,0,0,0.5)",
                   }}
                >
                   Land<span style={{ color: "#63b3ed" }}>Calc</span> Area
@@ -49,10 +49,10 @@ export default function Home() {
                <p
                   style={{
                      fontSize: "1.1rem",
-                     color: "#e2e8f0", // 🔥 Premium silver-gray text shade for visibility
+                     color: "#e2e8f0",
                      maxWidth: "600px",
                      margin: "0 auto",
-                     textShadow: "0 1px 2px rgba(0,0,0,0.3)",
+                     textShadow: "0 1px 3px rgba(0,0,0,0.4)",
                   }}
                >
                   Convert between regional Indian land units like Bigha, Kanal,
@@ -65,12 +65,12 @@ export default function Home() {
                style={{
                   maxWidth: "520px",
                   margin: "0 auto 4rem",
-                  backgroundColor: "rgba(255, 255, 255, 0.98)", // 🔥 Solid glass tint container
+                  backgroundColor: "rgba(255, 255, 255, 0.98)",
                   padding: "2.5rem 2rem",
                   borderRadius: "16px",
                   boxShadow:
-                     "0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.15)",
-                  backdropFilter: "blur(8px)",
+                     "0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2)",
+                  backdropFilter: "blur(12px)",
                   boxSizing: "border-box",
                }}
             >
@@ -82,7 +82,7 @@ export default function Home() {
                dangerouslySetInnerHTML={{
                   __html: `
                   .seo-link {
-                     color: #2d3748 !important; /* Enhanced grid link text clarity */
+                     color: #2d3748 !important; 
                      text-decoration: none;
                      font-size: 0.95rem;
                      transition: all 0.2s ease;
@@ -102,11 +102,11 @@ export default function Home() {
             <footer
                style={{
                   maxWidth: "100%",
-                  backgroundColor: "rgba(255, 255, 255, 0.96)", // 🔥 Soft frost footer overlay card
+                  backgroundColor: "rgba(255, 255, 255, 0.96)",
                   padding: "2.5rem",
                   borderRadius: "16px",
-                  boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
-                  backdropFilter: "blur(6px)",
+                  boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.15)",
+                  backdropFilter: "blur(8px)",
                   border: "1px solid rgba(226, 232, 240, 0.8)",
                   boxSizing: "border-box",
                }}
