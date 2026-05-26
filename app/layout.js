@@ -12,11 +12,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-   title: "LandCalc - Smart Land Area Converter",
+   // 🔥 Optimized Title for high ranking search capture
+   title: "LandCalc Next - Smart Indian Land Area Converter & Live News",
    description:
-      "Convert regional land units like Kanal, Acre, Gaj, and Bigha instantly.",
+      "Convert regional land units like UP Pucca Bigha, Uttarakhand Bigha, Kanal, Gaj, and Acre instantly. Track live real estate and infrastructure news updates.",
    metadataBase: new URL("https://landcalc-next-4yjv.vercel.app"),
-   // Add this verification section right here:
+
+   // Verification remains perfectly verified here:
    verification: {
       google: "WA9fxD0RBGa09jcn8sIhmjR83J3375loo5A5bqTTfC4",
    },
@@ -25,7 +27,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
    return (
       <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-         <body>{children}</body>
+         {/* Using dynamic background color variables directly */}
+         <body style={{ margin: 0, padding: 0, backgroundColor: "#f8fafc" }}>
+            {children}
+         </body>
       </html>
    );
 }
