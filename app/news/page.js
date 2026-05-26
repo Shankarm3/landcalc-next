@@ -9,10 +9,9 @@ export const metadata = {
 // Next.js Server Component automatic server par fetch karega
 async function getLiveNews() {
    // ⚠️ APNI REAL API KEY YAHA PASTE KAREIN
-   const API_KEY = "YOUR_GNEWS_API_KEY_HERE";
-
+   const API_KEY = fd703237c7afe02808e10e5c642bb4b9;
    // Hum India (in) ki English (en) news fetch kar rahe hain jo 'real estate' ya 'infrastructure' ke aas-pass ho
-   const url = `https://gnews.io/api/v4/search?q=real-estate-OR-infrastructure-OR-india&lang=en&country=in&max=5&apikey=${fd703237c7afe02808e10e5c642bb4b9}`;
+   const url = `https://gnews.io/api/v4/search?q=real-estate-OR-infrastructure-OR-india&lang=en&country=in&max=5&apikey=${API_KEY}`;
 
    try {
       const res = await fetch(url, {
