@@ -1,175 +1,109 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Navbar from "../../components/Navbar";
+import Navbar from "../components/Navbar"; // Ek baar path zaroor verify kar lena
 
 export default function NewsPage() {
-   const [articles, setArticles] = useState([]);
-   const [loading, setLoading] = useState(true);
-
-   const backupNews = [
+   // Dummy data just for demonstration mapping hierarchy structure
+   const newsItems = [
       {
-         title: "India's Infrastructure Growth: New Expressways Transforming Regional Real Estate Layouts",
-         description:
-            "A major surge in highway connectivity is rapidly accelerating land and plot valuations across tier-2 and tier-3 sectors in Northern India.",
-         source: { name: "National Economic Times" },
-         publishedAt: new Date().toISOString(),
-         url: "https://gnews.io",
+         source: "MONEYCONTROL.COM",
+         date: "26/5/2026",
+         title: "Global markets soar but the rally belongs to just a few stocks",
+         desc: "Global market gains over the past year were driven by a handful of heavyweight stocks, exposing the narrow breadth of the rally even as major indices scaled record highs.",
       },
       {
-         title: "Digital Land Records: Government Scales AI Integration to Secure Bhulekh Registries",
-         description:
-            "State land revenue wings are moving to secure modern databases to make property registries transparent, instant, and scam-free.",
-         source: { name: "TechIndia Infrastructure" },
-         publishedAt: new Date().toISOString(),
-         url: "https://gnews.io",
-      },
-      {
-         title: "Global Property Trends: How Financial Interest Rate Adjustments Shift Land Metrics",
-         description:
-            "International real estate markets adapt to fresh liquidity standards, stabilizing long-term property investments this quarter.",
-         source: { name: "Global Finance Review" },
-         publishedAt: new Date().toISOString(),
-         url: "https://gnews.io",
-      },
-      {
-         title: "Smart Cities Layout Masterplan: New Urban Expansion Guidelines Approved for 15 Hubs",
-         description:
-            "The urban planning administration has cleared high-density structural mapping blueprints, modifying regional layout frameworks.",
-         source: { name: "Bharat Real Estate Desk" },
-         publishedAt: new Date().toISOString(),
-         url: "https://gnews.io",
-      },
-      {
-         title: "Agricultural Plots Update: Standard Legal Guidelines for Verifying Ancestral Registry",
-         description:
-            "A detailed workflow detailing circle rates, mutation protocols, and local scale verification methods for agricultural investors.",
-         source: { name: "Indian Revenue Journal" },
-         publishedAt: new Date().toISOString(),
-         url: "https://gnews.io",
+         source: "CRUDE OIL PRICES TODAY | OILPRICE.COM",
+         date: "26/5/2026",
+         title: "India Cuts Fuel Demand Growth Projections By 40% Amid Austerity Drive",
+         desc: "India has cut its fuel demand growth forecast by nearly 40% as soaring crude prices, a weaker rupee, and government austerity measures slow transportation and aviation fuel consumption.",
       },
    ];
 
-   async function fetchLiveNews() {
-      setLoading(true);
-      try {
-         const res = await fetch("/api/news");
-         if (!res.ok) throw new Error("API Route Error");
-
-         const data = await res.json();
-         if (data.articles && data.articles.length > 0) {
-            setArticles(data.articles);
-         } else {
-            setArticles(backupNews);
-         }
-      } catch (error) {
-         console.error(
-            "Internal endpoint fetch failed, loading backup:",
-            error,
-         );
-         setArticles(backupNews);
-      } finally {
-         setLoading(false);
-      }
-   }
-
-   useEffect(() => {
-      fetchLiveNews();
-   }, []);
-
    return (
-      <main
-         style={{
-            minHeight: "100vh",
-            backgroundColor: "#f8fafc",
-            backgroundImage:
-               "linear-gradient(180deg, #edf2f7 0%, #f8fafc 400px)",
-            fontFamily: "system-ui, -apple-system, sans-serif",
-         }}
-      >
+      <div style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
          <Navbar />
 
-         {/* 🔥 Mobile Padding Optimization: Added safe horizontal margins */}
          <div
             style={{
-               padding: "2.5rem 1rem max(5vh, 2rem)",
-               maxWidth: "800px",
+               padding: "3rem 1rem max(5vh, 2rem)",
+               maxWidth: "800px", // Perfect clean width for news stream tracking grid
                margin: "0 auto",
                boxSizing: "border-box",
             }}
          >
-            {/* Section Header */}
+            {/* Header Section */}
             <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
                <span
                   style={{
-                     backgroundColor: "#ebf8ff",
-                     color: "#3182ce",
-                     padding: "0.35rem 0.85rem",
+                     backgroundColor: "rgba(66, 153, 225, 0.15)",
+                     color: "#63b3ed",
+                     padding: "0.25rem 0.75rem",
                      borderRadius: "20px",
-                     fontSize: "0.8rem",
+                     fontSize: "0.75rem",
                      fontWeight: "700",
                      textTransform: "uppercase",
                      letterSpacing: "0.05em",
+                     display: "inline-block",
+                     marginBottom: "0.75rem",
+                     backdropFilter: "blur(4px)",
                   }}
                >
                   Live Client Feed
                </span>
-
-               {/* 🔥 Fluid Typography: Standard layout scales elegantly down on tiny displays */}
                <h1
                   style={{
-                     fontSize: "clamp(1.75rem, 6vw, 2.5rem)",
+                     fontSize: "clamp(2rem, 5vw, 2.5rem)",
                      fontWeight: "800",
-                     letterSpacing: "-0.03em",
-                     marginTop: "0.75rem",
+                     color: "#ffffff", // Pure white for high visual readability
+                     letterSpacing: "-0.025em",
                      marginBottom: "0.5rem",
-                     color: "#1a202c",
-                     lineHeight: "1.2",
+                     textShadow: "0 2px 4px rgba(0,0,0,0.4)",
                   }}
                >
-                  Today's Top{" "}
-                  <span style={{ color: "#3182ce", display: "block" }}>
-                     5 News Streams
-                  </span>
+                  Today's Top 5 News Streams
                </h1>
-
                <p
                   style={{
                      fontSize: "0.95rem",
-                     color: "#4a5568",
-                     maxWidth: "550px",
-                     margin: "0 auto 1.25rem auto",
-                     lineHeight: "1.5",
+                     color: "#e2e8f0",
+                     maxWidth: "500px",
+                     margin: "0 auto",
+                     lineHeight: "1.4",
+                     textShadow: "0 1px 2px rgba(0,0,0,0.3)",
                   }}
                >
                   Live automated micro-feed tracking national news, global
                   shifts, and Indian infrastructure.
                </p>
+            </div>
 
-               {/* 🔥 Mobile Button Fix: Removed full-width stretch, constrained width for compact elegance */}
+            {/* Refresh Action Trigger Button */}
+            <div style={{ textAlign: "center", marginBottom: "3rem" }}>
                <button
-                  onClick={fetchLiveNews}
-                  disabled={loading}
                   style={{
-                     width: "100%",
-                     maxWidth: "280px",
-                     padding: "0.75rem 1.25rem",
-                     backgroundColor: loading ? "#e2e8f0" : "#3182ce",
-                     color: loading ? "#a0aec0" : "#ffffff",
+                     backgroundColor: "#3182ce",
+                     color: "#ffffff",
                      border: "none",
+                     padding: "0.65rem 1.5rem",
                      borderRadius: "8px",
                      fontSize: "0.9rem",
                      fontWeight: "600",
-                     cursor: loading ? "not-allowed" : "pointer",
-                     boxShadow: "0 4px 6px -1px rgba(49, 130, 206, 0.15)",
-                     transition: "background-color 0.2s, transform 0.1s",
+                     cursor: "pointer",
+                     boxShadow: "0 4px 6px rgba(49, 130, 206, 0.3)",
+                     transition: "background-color 0.2s",
                   }}
+                  onMouseOver={(e) =>
+                     (e.target.style.backgroundColor = "#2b6cb0")
+                  }
+                  onMouseOut={(e) =>
+                     (e.target.style.backgroundColor = "#3182ce")
+                  }
                >
-                  {loading ? "Fetching Latest..." : "🔄 Refresh Live Data"}
+                  🔄 Refresh Live Data
                </button>
             </div>
 
-            {/* News Feed Cards Layout */}
+            {/* News Cards Feed Stream Wrapper */}
             <div
                style={{
                   display: "flex",
@@ -177,146 +111,115 @@ export default function NewsPage() {
                   gap: "1.5rem",
                }}
             >
-               {!loading ? (
-                  articles.map((item, index) => (
-                     <article
-                        key={index}
-                        style={{
-                           backgroundColor: "#ffffff",
-                           padding: "1.5rem", // Optimized layout padding for fingers/mobile tap structures
-                           borderRadius: "14px",
-                           border: "1px solid #e2e8f0",
-                           boxShadow:
-                              "0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02)",
-                           position: "relative",
-                           boxSizing: "border-box",
-                        }}
-                     >
-                        {/* Badge Indicator */}
-                        <div
-                           style={{
-                              position: "absolute",
-                              left: "-8px", // Adjusted to sit beautifully on mobile boundaries
-                              top: "-10px", // Placed slightly above card top line for distinct native UI feel
-                              backgroundColor: "#3182ce",
-                              color: "#ffffff",
-                              width: "24px",
-                              height: "24px",
-                              borderRadius: "50%",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              fontSize: "0.8rem",
-                              fontWeight: "700",
-                              boxShadow: "0 2px 4px rgba(49, 130, 206, 0.3)",
-                           }}
-                        >
-                           {index + 1}
-                        </div>
-
-                        {/* Metadata Row layout */}
-                        <div
-                           style={{
-                              display: "flex",
-                              flexWrap: "wrap",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                              gap: "0.5rem",
-                              marginBottom: "0.75rem",
-                           }}
-                        >
-                           <span
-                              style={{
-                                 fontSize: "0.75rem",
-                                 fontWeight: "700",
-                                 color: "#4a5568",
-                                 textTransform: "uppercase",
-                                 letterSpacing: "0.05em",
-                              }}
-                           >
-                              {item.source?.name || "Live Stream"}
-                           </span>
-                           <span
-                              style={{
-                                 fontSize: "0.75rem",
-                                 color: "#a0aec0",
-                                 fontWeight: "500",
-                              }}
-                           >
-                              {item.publishedAt
-                                 ? new Date(
-                                      item.publishedAt,
-                                   ).toLocaleDateString("en-IN")
-                                 : ""}
-                           </span>
-                        </div>
-
-                        <h2
-                           style={{
-                              fontSize: "1.15rem",
-                              fontWeight: "700",
-                              color: "#1a202c",
-                              lineHeight: "1.4",
-                              marginBottom: "0.5rem",
-                           }}
-                        >
-                           {item.title}
-                        </h2>
-
-                        <p
-                           style={{
-                              color: "#4a5568",
-                              fontSize: "0.9rem",
-                              lineHeight: "1.5",
-                              marginBottom: "1rem",
-                           }}
-                        >
-                           {item.description}
-                        </p>
-
-                        <a
-                           href={item.url}
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           style={{
-                              fontSize: "0.85rem",
-                              color: "#3182ce",
-                              textDecoration: "underline",
-                              fontWeight: "600",
-                              display: "inline-block",
-                           }}
-                        >
-                           Read full article via source →
-                        </a>
-                     </article>
-                  ))
-               ) : (
+               {newsItems.map((item, index) => (
                   <div
+                     key={index}
                      style={{
-                        textAlign: "center",
-                        padding: "4rem 1rem",
-                        color: "#718096",
+                        // 🔥 The Transparent Glass Fix: Using translucent alpha backgrounds with blur effects
+                        backgroundColor: "rgba(255, 255, 255, 0.97)",
+                        padding: "1.75rem max(1.25rem, 3vw)",
+                        borderRadius: "12px",
+                        boxShadow:
+                           "0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.15)",
+                        backdropFilter: "blur(10px)",
+                        border: "1px solid rgba(226, 232, 240, 0.8)",
+                        position: "relative",
+                        boxSizing: "border-box",
                      }}
                   >
-                     <p style={{ fontSize: "1rem", fontWeight: "500" }}>
-                        Connecting to live news databases...
-                     </p>
-                  </div>
-               )}
-            </div>
+                     {/* Circular Badge Counter Indicator */}
+                     <span
+                        style={{
+                           position: "absolute",
+                           top: "1.5rem",
+                           left: "-10px",
+                           backgroundColor: "#3182ce",
+                           color: "#ffffff",
+                           width: "24px",
+                           height: "24px",
+                           borderRadius: "50%",
+                           display: "flex",
+                           alignItems: "center",
+                           justifyContent: "center",
+                           fontSize: "0.8rem",
+                           fontWeight: "700",
+                           boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
+                        }}
+                     >
+                        {index + 1}
+                     </span>
 
-            <p
-               style={{
-                  textAlign: "center",
-                  fontSize: "0.8rem",
-                  color: "#94a3b8",
-                  marginTop: "3rem",
-                  padding: "0 1rem",
-               }}
-            >
-               Data pulled via live global JSON streams directly on-client.
-            </p>
+                     <div
+                        style={{
+                           display: "flex",
+                           justifyContent: "between",
+                           alignItems: "center",
+                           justifyContent: "space-between",
+                           marginBottom: "0.5rem",
+                           flexWrap: "wrap",
+                           gap: "0.5rem",
+                        }}
+                     >
+                        <span
+                           style={{
+                              color: "#4a5568",
+                              fontSize: "0.75rem",
+                              fontWeight: "700",
+                              letterSpacing: "0.05em",
+                           }}
+                        >
+                           {item.source}
+                        </span>
+                        <span
+                           style={{
+                              color: "#a0aec0",
+                              fontSize: "0.75rem",
+                              fontWeight: "500",
+                           }}
+                        >
+                           {item.date}
+                        </span>
+                     </div>
+
+                     <h2
+                        style={{
+                           fontSize: "1.2rem",
+                           fontWeight: "700",
+                           color: "#1a202c",
+                           marginBottom: "0.75rem",
+                           lineHeight: "1.3",
+                        }}
+                     >
+                        {item.title}
+                     </h2>
+
+                     <p
+                        style={{
+                           fontSize: "0.9rem",
+                           color: "#4a5568",
+                           lineHeight: "1.5",
+                           marginBottom: "1rem",
+                        }}
+                     >
+                        {item.desc}
+                     </p>
+
+                     <a
+                        href="#"
+                        style={{
+                           color: "#3182ce",
+                           textDecoration: "none",
+                           fontSize: "0.85rem",
+                           fontWeight: "600",
+                           display: "inline-block",
+                        }}
+                     >
+                        Read full article via source →
+                     </a>
+                  </div>
+               ))}
+            </div>
          </div>
-      </main>
+      </div>
    );
 }
