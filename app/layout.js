@@ -24,20 +24,22 @@ export const metadata = {
 export default function RootLayout({ children }) {
    return (
       <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-         {/* 🔥 Global Secure Background Fix: Moved image here so it reflects on all sub-routes */}
-         <body
-            style={{
-               margin: 0,
-               padding: 0,
-               minHeight: "100vh",
-               boxSizing: "border-box",
-               backgroundImage: `linear-gradient(180deg, rgba(26, 32, 44, 0.82) 0%, rgba(45, 55, 72, 0.5) 100%), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1600&auto=format&fit=crop')`,
-               backgroundSize: "cover",
-               backgroundPosition: "center",
-               backgroundAttachment: "fixed",
-               backgroundColor: "#1a202c", // Fallback dark color
-            }}
-         >
+         <head>
+            {/* 🔥 ABSOLUTE GLOBAL FIX: Forcing browser engine to bypass globals.css and apply the secure backdrop everywhere */}
+            <style dangerouslySetInnerHTML={{ __html: `
+               body, html {
+                  margin: 0 !important;
+                  padding: 0 !important;
+                  min-height: 100vh !important;
+                  background-image: linear-gradient(180deg, rgba(26, 32, 44, 0.85) 0%, rgba(45, 55, 72, 0.5) 100%), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1600&auto=format&fit=crop') !important;
+                  background-size: cover !important;
+                  background-position: center !important;
+                  background-attachment: fixed !important;
+                  background-color: #1a202c !important;
+               }
+            `}} />
+         </head>
+         <body>
             {children}
          </body>
       </html>

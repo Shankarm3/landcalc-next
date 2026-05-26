@@ -39,15 +39,8 @@ export default async function ConversionPage({ params }) {
    const to = parts[1] || "gaj";
 
    return (
-      <main
-         style={{
-            minHeight: "100vh",
-            backgroundColor: "#f8fafc",
-            backgroundImage:
-               "linear-gradient(180deg, #edf2f7 0%, #f8fafc 400px)",
-            fontFamily: "system-ui, -apple-system, sans-serif",
-         }}
-      >
+      // 🔥 Cleaned core wrapper wrapper to let root layout's image breathe
+      <div style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
          <Navbar />
 
          <div
@@ -65,20 +58,22 @@ export default async function ConversionPage({ params }) {
                      fontWeight: "800",
                      letterSpacing: "-0.025em",
                      marginBottom: "0.75rem",
-                     color: "#1a202c",
+                     color: "#ffffff", // 🔥 Pure white contrast adjustment
+                     textShadow: "0 2px 4px rgba(0,0,0,0.5)",
                   }}
                >
                   Smart{" "}
-                  <span style={{ color: "#3182ce" }}>{capitalize(from)}</span>{" "}
-                  to <span style={{ color: "#3182ce" }}>{capitalize(to)}</span>{" "}
+                  <span style={{ color: "#63b3ed" }}>{capitalize(from)}</span>{" "}
+                  to <span style={{ color: "#63b3ed" }}>{capitalize(to)}</span>{" "}
                   Converter
                </h1>
                <p
                   style={{
                      fontSize: "1.1rem",
-                     color: "#4a5568",
+                     color: "#e2e8f0", // 🔥 Light slate gray for clean legibility over background
                      maxWidth: "600px",
                      margin: "0 auto",
+                     textShadow: "0 1px 2px rgba(0,0,0,0.4)",
                   }}
                >
                   Convert regional Indian land units accurately, instantly, and
@@ -91,12 +86,13 @@ export default async function ConversionPage({ params }) {
                style={{
                   maxWidth: "520px",
                   margin: "0 auto",
-                  backgroundColor: "#ffffff",
+                  backgroundColor: "rgba(255, 255, 255, 0.98)", // 🔥 Frosted glass alpha sync
                   padding: "2.5rem 2rem",
                   borderRadius: "16px",
                   boxShadow:
-                     "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05)",
-                  border: "1px solid #e2e8f0",
+                     "0 20px 25px -5px rgba(0, 0, 0, 0.25), 0 10px 10px -5px rgba(0, 0, 0, 0.2)",
+                  border: "1px solid rgba(226, 232, 240, 0.8)",
+                  backdropFilter: "blur(10px)",
                }}
             >
                <Converter defaultFrom={from} defaultTo={to} />
@@ -106,11 +102,12 @@ export default async function ConversionPage({ params }) {
             <div style={{ maxWidth: "768px", margin: "4rem auto 0" }}>
                <section
                   style={{
-                     backgroundColor: "#ffffff",
+                     backgroundColor: "rgba(255, 255, 255, 0.96)", // 🔥 Translucent informational pane
                      padding: "2.5rem",
                      borderRadius: "16px",
-                     boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.03)",
-                     border: "1px solid #e2e8f0",
+                     boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.15)",
+                     border: "1px solid rgba(226, 232, 240, 0.8)",
+                     backdropFilter: "blur(8px)",
                   }}
                >
                   <h2
@@ -128,7 +125,7 @@ export default async function ConversionPage({ params }) {
 
                   <p
                      style={{
-                        color: "#4a5568",
+                        color: "#2d3748",
                         lineHeight: "1.7",
                         marginBottom: "1.25rem",
                         fontSize: "1rem",
@@ -144,7 +141,7 @@ export default async function ConversionPage({ params }) {
 
                   <p
                      style={{
-                        color: "#4a5568",
+                        color: "#2d3748",
                         lineHeight: "1.7",
                         marginBottom: "2rem",
                         fontSize: "1rem",
@@ -165,7 +162,7 @@ export default async function ConversionPage({ params }) {
                         style={{
                            fontSize: "1.2rem",
                            fontWeight: "600",
-                           color: "#2d3748",
+                           color: "#1a202c",
                            marginBottom: "1rem",
                         }}
                      >
@@ -176,6 +173,7 @@ export default async function ConversionPage({ params }) {
                            overflowX: "auto",
                            borderRadius: "8px",
                            border: "1px solid #e2e8f0",
+                           backgroundColor: "#ffffff", // Keeps the content matrix table solid and sharp
                         }}
                      >
                         <table
@@ -281,6 +279,6 @@ export default async function ConversionPage({ params }) {
                </section>
             </div>
          </div>
-      </main>
+      </div>
    );
 }
