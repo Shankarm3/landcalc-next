@@ -1,6 +1,6 @@
 "use client";
 
-import Navbar from "../components/Navbar"; // Ek baar path zaroor verify kar lena
+import Navbar from "../../components/Navbar"; // Ek baar path zaroor verify kar lena
 
 export default function NewsPage() {
    // Dummy data just for demonstration mapping hierarchy structure
