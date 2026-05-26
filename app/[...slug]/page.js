@@ -6,7 +6,6 @@ function capitalize(str) {
    return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-// Regional context data to make descriptions unique and highly relevant for SEO changes committed
 const unitDescriptions = {
    sqft: "Square Feet (sq ft) is the standard international benchmark used across modern real estate layouts and apartment floor plans.",
    gaj: "Gaj (or Square Yard) is a traditional land measurement unit widely utilized across urban housing societies and local plots in Northern India.",
@@ -38,193 +37,258 @@ export default async function ConversionPage({ params }) {
    const to = parts[1] || "gaj";
 
    return (
-      <main style={{ minHeight: "100vh", backgroundColor: "#f7fafc" }}>
+      <main
+         style={{
+            minHeight: "100vh",
+            backgroundColor: "#f8fafc",
+            backgroundImage:
+               "linear-gradient(180deg, #edf2f7 0%, #f8fafc 400px)",
+            fontFamily: "system-ui, -apple-system, sans-serif",
+         }}
+      >
          <Navbar />
 
-         <div style={{ padding: "3rem 1rem", textAlign: "center" }}>
-            <h1
-               style={{
-                  fontSize: "2.5rem",
-                  fontWeight: "bold",
-                  marginBottom: "0.5rem",
-                  color: "#1a202c",
-               }}
-            >
-               Smart {capitalize(from)} to {capitalize(to)} Converter
-            </h1>
-            <p style={{ color: "#4a5568", marginBottom: "2.5rem" }}>
-               Convert regional land units accurately and instantly.
-            </p>
-
-            {/* Main Calculator */}
-            <Converter defaultFrom={from} defaultTo={to} />
-
-            {/* SEO Informational Section */}
-            <section
-               style={{
-                  maxWidth: "700px",
-                  margin: "4rem auto 0",
-                  padding: "2rem",
-                  backgroundColor: "#ffffff",
-                  borderRadius: "12px",
-                  boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
-                  textAlign: "left",
-               }}
-            >
-               <h2
+         <div
+            style={{
+               padding: "4rem 1rem max(5vh, 2rem)",
+               maxWidth: "1200px",
+               margin: "0 auto",
+            }}
+         >
+            {/* Header Section */}
+            <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+               <h1
                   style={{
-                     fontSize: "1.5rem",
-                     fontWeight: "600",
-                     marginBottom: "1rem",
-                     color: "#2d3748",
+                     fontSize: "clamp(2rem, 5vw, 2.75rem)",
+                     fontWeight: "800",
+                     letterSpacing: "-0.025em",
+                     marginBottom: "0.75rem",
+                     color: "#1a202c",
                   }}
                >
-                  Understanding {capitalize(from)} and {capitalize(to)}
-               </h2>
+                  Smart{" "}
+                  <span style={{ color: "#3182ce" }}>{capitalize(from)}</span>{" "}
+                  to <span style={{ color: "#3182ce" }}>{capitalize(to)}</span>{" "}
+                  Converter
+               </h1>
                <p
                   style={{
+                     fontSize: "1.1rem",
                      color: "#4a5568",
-                     lineHeight: "1.6",
-                     marginBottom: "1rem",
+                     maxWidth: "600px",
+                     margin: "0 auto",
                   }}
                >
-                  When dealing with regional real estate or agricultural
-                  property, converting values accurately is critical.
-                  {unitDescriptions[from] ? ` ${unitDescriptions[from]}` : ""}
+                  Convert regional Indian land units accurately, instantly, and
+                  completely ad-free.
                </p>
-               <p style={{ color: "#4a5568", lineHeight: "1.6" }}>
-                  By shifting your measurements into {capitalize(to)}, you
-                  change the contextual scale completely.
-                  {unitDescriptions[to] ? ` ${unitDescriptions[to]}` : ""} Use
-                  our smart automated calculator above to complete your
-                  conversions instantly without needing complex manual math
-                  calculations.
-               </p>
+            </div>
 
-               {/* --- RENDERED STATE BREAKDOWN TABLE ADDED HERE --- */}
-               <div style={{ marginTop: "2.5rem", overflowX: "auto" }}>
-                  <h3
+            {/* Main Interactive Calculator Area */}
+            <div
+               style={{
+                  maxWidth: "520px",
+                  margin: "0 auto",
+                  backgroundColor: "#ffffff",
+                  padding: "2.5rem 2rem",
+                  borderRadius: "16px",
+                  boxShadow:
+                     "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05)",
+                  border: "1px solid #e2e8f0",
+               }}
+            >
+               <Converter defaultFrom={from} defaultTo={to} />
+            </div>
+
+            {/* Informational SEO Container */}
+            <div style={{ maxWidth: "768px", margin: "4rem auto 0" }}>
+               <section
+                  style={{
+                     backgroundColor: "#ffffff",
+                     padding: "2.5rem",
+                     borderRadius: "16px",
+                     boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.03)",
+                     border: "1px solid #e2e8f0",
+                  }}
+               >
+                  <h2
                      style={{
-                        fontSize: "1.2rem",
-                        fontWeight: "600",
-                        color: "#2d3748",
-                        marginBottom: "0.75rem",
+                        fontSize: "1.5rem",
+                        fontWeight: "700",
+                        marginBottom: "1.25rem",
+                        color: "#1a202c",
+                        borderBottom: "2px solid #edf2f7",
+                        paddingBottom: "0.75rem",
                      }}
                   >
-                     Regional Values & Indian State Variations
-                  </h3>
-                  <table
+                     Understanding {capitalize(from)} and {capitalize(to)}
+                  </h2>
+
+                  <p
                      style={{
-                        width: "100%",
-                        borderCollapse: "collapse",
-                        textAlign: "left",
-                        fontSize: "0.9rem",
+                        color: "#4a5568",
+                        lineHeight: "1.7",
+                        marginBottom: "1.25rem",
+                        fontSize: "1rem",
                      }}
                   >
-                     <thead>
-                        <tr style={{ backgroundColor: "#edf2f7" }}>
-                           <th
-                              style={{
-                                 padding: "0.75rem 0.5rem",
-                                 borderBottom: "2px solid #e2e8f0",
-                                 color: "#4a5568",
-                              }}
-                           >
-                              State / Region
-                           </th>
-                           <th
-                              style={{
-                                 padding: "0.75rem 0.5rem",
-                                 borderBottom: "2px solid #e2e8f0",
-                                 color: "#4a5568",
-                              }}
-                           >
-                              Standard Local Definition
-                           </th>
-                        </tr>
-                     </thead>
-                     <tbody style={{ color: "#4a5568" }}>
-                        <tr>
-                           <td
-                              style={{
-                                 padding: "0.75rem 0.5rem",
-                                 borderBottom: "1px solid #e2e8f0",
-                              }}
-                           >
-                              <b>Uttar Pradesh (UP)</b>
-                           </td>
-                           <td
-                              style={{
-                                 padding: "0.75rem 0.5rem",
-                                 borderBottom: "1px solid #e2e8f0",
-                              }}
-                           >
-                              1 Pucca Bigha is commonly stabilized at 27,000 Sq.
-                              Ft.
-                           </td>
-                        </tr>
-                        <tr>
-                           <td
-                              style={{
-                                 padding: "0.75rem 0.5rem",
-                                 borderBottom: "1px solid #e2e8f0",
-                              }}
-                           >
-                              <b>Punjab & Haryana</b>
-                           </td>
-                           <td
-                              style={{
-                                 padding: "0.75rem 0.5rem",
-                                 borderBottom: "1px solid #e2e8f0",
-                              }}
-                           >
-                              Land systems scale 1 Kanal exactly to 5,445 Sq.
-                              Ft. (equal to 20 Marlas).
-                           </td>
-                        </tr>
-                        <tr>
-                           <td
-                              style={{
-                                 padding: "0.75rem 0.5rem",
-                                 borderBottom: "1px solid #e2e8f0",
-                              }}
-                           >
-                              <b>Rajasthan</b>
-                           </td>
-                           <td
-                              style={{
-                                 padding: "0.75rem 0.5rem",
-                                 borderBottom: "1px solid #e2e8f0",
-                              }}
-                           >
-                              1 Pucca Bigha equates to 27,225 Sq. Ft., whereas 1
-                              Kutcha Bigha is 9,075 Sq. Ft.
-                           </td>
-                        </tr>
-                        <tr>
-                           <td
-                              style={{
-                                 padding: "0.75rem 0.5rem",
-                                 borderBottom: "1px solid #e2e8f0",
-                              }}
-                           >
-                              <b>Delhi NCR</b>
-                           </td>
-                           <td
-                              style={{
-                                 padding: "0.75rem 0.5rem",
-                                 borderBottom: "1px solid #e2e8f0",
-                              }}
-                           >
-                              1 Gaj is widely transacted as exactly 9 Square
-                              Feet.
-                           </td>
-                        </tr>
-                     </tbody>
-                  </table>
-               </div>
-               {/* ------------------------------------------------- */}
-            </section>
+                     When dealing with regional real estate transactions or
+                     managing agricultural land paperwork in India, converting
+                     value metrics accurately is critical to prevent errors.
+                     {unitDescriptions[from]
+                        ? ` ${unitDescriptions[from]}`
+                        : ""}
+                  </p>
+
+                  <p
+                     style={{
+                        color: "#4a5568",
+                        lineHeight: "1.7",
+                        marginBottom: "2rem",
+                        fontSize: "1rem",
+                     }}
+                  >
+                     By shifting your measurements into local {capitalize(to)},
+                     you transition across regional scale standards smoothly.
+                     {unitDescriptions[to]
+                        ? ` ${unitDescriptions[to]}`
+                        : ""}{" "}
+                     Use our custom-built computational layout above to execute
+                     calculations instantly without manual error risks.
+                  </p>
+
+                  {/* Enhanced State Breakdown Data Table */}
+                  <div style={{ marginTop: "2.5rem" }}>
+                     <h3
+                        style={{
+                           fontSize: "1.2rem",
+                           fontWeight: "600",
+                           color: "#2d3748",
+                           marginBottom: "1rem",
+                        }}
+                     >
+                        Regional Definitions & State Benchmarks
+                     </h3>
+                     <div
+                        style={{
+                           overflowX: "auto",
+                           borderRadius: "8px",
+                           border: "1px solid #e2e8f0",
+                        }}
+                     >
+                        <table
+                           style={{
+                              width: "100%",
+                              borderCollapse: "collapse",
+                              textAlign: "left",
+                              fontSize: "0.95rem",
+                           }}
+                        >
+                           <thead>
+                              <tr style={{ backgroundColor: "#f7fafc" }}>
+                                 <th
+                                    style={{
+                                       padding: "1rem",
+                                       borderBottom: "2px solid #e2e8f0",
+                                       color: "#4a5568",
+                                       fontWeight: "600",
+                                    }}
+                                 >
+                                    State / Region
+                                 </th>
+                                 <th
+                                    style={{
+                                       padding: "1rem",
+                                       borderBottom: "2px solid #e2e8f0",
+                                       color: "#4a5568",
+                                       fontWeight: "600",
+                                    }}
+                                 >
+                                    Standard Local Definition
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody style={{ color: "#4a5568" }}>
+                              <tr
+                                 style={{ transition: "background-color 0.2s" }}
+                              >
+                                 <td
+                                    style={{
+                                       padding: "1rem",
+                                       borderBottom: "1px solid #e2e8f0",
+                                    }}
+                                 >
+                                    <b>Uttar Pradesh (UP)</b>
+                                 </td>
+                                 <td
+                                    style={{
+                                       padding: "1rem",
+                                       borderBottom: "1px solid #e2e8f0",
+                                    }}
+                                 >
+                                    1 Pucca Bigha is commonly stabilized at
+                                    27,000 Sq. Ft.
+                                 </td>
+                              </tr>
+                              <tr
+                                 style={{ transition: "background-color 0.2s" }}
+                              >
+                                 <td
+                                    style={{
+                                       padding: "1rem",
+                                       borderBottom: "1px solid #e2e8f0",
+                                    }}
+                                 >
+                                    <b>Punjab & Haryana</b>
+                                 </td>
+                                 <td
+                                    style={{
+                                       padding: "1rem",
+                                       borderBottom: "1px solid #e2e8f0",
+                                    }}
+                                 >
+                                    Land systems scale 1 Kanal exactly to 5,445
+                                    Sq. Ft. (equal to 20 Marlas).
+                                 </td>
+                              </tr>
+                              <tr
+                                 style={{ transition: "background-color 0.2s" }}
+                              >
+                                 <td
+                                    style={{
+                                       padding: "1rem",
+                                       borderBottom: "1px solid #e2e8f0",
+                                    }}
+                                 >
+                                    <b>Rajasthan</b>
+                                 </td>
+                                 <td
+                                    style={{
+                                       padding: "1rem",
+                                       borderBottom: "1px solid #e2e8f0",
+                                    }}
+                                 >
+                                    1 Pucca Bigha equates to 27,225 Sq. Ft.,
+                                    whereas 1 Kutcha Bigha is 9,075 Sq. Ft.
+                                 </td>
+                              </tr>
+                              <tr
+                                 style={{ transition: "background-color 0.2s" }}
+                              >
+                                 <td style={{ padding: "1rem" }}>
+                                    <b>Delhi NCR</b>
+                                 </td>
+                                 <td style={{ padding: "1rem" }}>
+                                    1 Gaj is widely transacted as exactly 9
+                                    Square Feet.
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </section>
+            </div>
          </div>
       </main>
    );
