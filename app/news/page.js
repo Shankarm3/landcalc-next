@@ -52,19 +52,17 @@ export default function NewsPage() {
    ];
 
    // Main fetch function jo live database ko hit karegi
+   // Inside app/news/page.js -> Update only the fetchLiveNews function:
+
    async function fetchLiveNews() {
       setLoading(true);
-      const API_KEY = "fd703237c7afe02808e10e5c642bb4b9";
-
-      // Top business & industrial headlines parameter (More reliable live payload stream)
-      const url = `https://gnews.io/api/v4/top-headlines?category=business&lang=en&country=in&max=5&apikey=${API_KEY}`;
 
       try {
-         const res = await fetch(url);
-         if (!res.ok) throw new Error("API Limit or Error");
+         // Ab hum direct GNews ko nahi, apne internal server route ko call kar rahe hain
+         const res = await fetch("/api/news");
+         if (!res.ok) throw new Error("API Route Error");
 
          const data = await res.json();
-         console.log(data);
          if (data.articles && data.articles.length > 0) {
             setArticles(data.articles);
          } else {
@@ -72,7 +70,7 @@ export default function NewsPage() {
          }
       } catch (error) {
          console.error(
-            "Live fetch failed, matching with backup array stream:",
+            "Internal endpoint fetch failed, loading backup:",
             error,
          );
          setArticles(backupNews);
