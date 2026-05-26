@@ -1,8 +1,8 @@
 export default async function sitemap() {
-   const baseUrl = "https://yourdomain.com"; // Replace with your actual domain later
+   // Use your real production URL here so Googlebot knows where to look!
+   const baseUrl = "https://landcalc-next-4yjv.vercel.app";
    const units = ["sqft", "gaj", "kanal", "bigha", "acre"];
 
-   // Create homepage link entry
    const routes = [
       {
          url: baseUrl,
@@ -12,7 +12,6 @@ export default async function sitemap() {
       },
    ];
 
-   // Loop through and automatically generate links for every variation pairs
    units.forEach((from) => {
       units.forEach((to) => {
          if (from !== to) {
