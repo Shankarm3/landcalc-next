@@ -1,8 +1,38 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation"; // 🔥 Active path track karne ke liye hook
 
 export default function Navbar() {
+   const pathname = usePathname(); // Yeh aapko batayega current page ka link kya hai
+
+   // Helper function jo check karega ki kaunsa tab active hai aur uske hisab se dynamic styling dega
+   const getLinkStyle = (path, isButton = false) => {
+      const isActive = pathname === path;
+
+      if (isButton) {
+         return {
+            color: "#f7fafc",
+            backgroundColor: isActive ? "#2b6cb0" : "#4a5568", // Active hai toh bright blue, nahi toh neutral gray
+            padding: "0.35rem 0.65rem",
+            borderRadius: "6px",
+            textDecoration: "none",
+            fontSize: "0.85rem",
+            fontWeight: "700",
+            transition: "background-color 0.2s",
+         };
+      }
+
+      return {
+         color: isActive ? "#63b3ed" : "#e2e8f0", // Active tab text soft blue dikhega, baaki links silver-white
+         textDecoration: "none",
+         fontSize: "0.85rem",
+         fontWeight: isActive ? "700" : "600",
+         whiteSpace: "nowrap",
+         transition: "color 0.2s",
+      };
+   };
+
    return (
       <nav
          style={{
@@ -18,7 +48,6 @@ export default function Navbar() {
                maxWidth: "1000px",
                margin: "0 auto",
                display: "flex",
-               // 🔥 Mobile Fix: Jab screen chhoti ho, brand upar aur links automatically niche flexible rows me adjust honge
                flexDirection: "row",
                flexWrap: "wrap",
                alignItems: "center",
@@ -44,75 +73,34 @@ export default function Navbar() {
             <div
                style={{
                   display: "flex",
-                  // 🔥 Mobile Navigation Layout Fix:
-                  // Links wrap honge aur mobile par clean space maintain karenge bina screen todte hue
                   flexWrap: "wrap",
                   alignItems: "center",
-                  gap: "clamp(0.5rem, 3vw, 1.25rem)", // Responsive text gaps
+                  gap: "clamp(0.5rem, 3vw, 1.25rem)",
                }}
             >
-               <Link
-                  href="/news"
-                  style={{
-                     color: "#f7fafc",
-                     backgroundColor: "#2b6cb0", // Highlights the news tab beautifully
-                     padding: "0.35rem 0.65rem",
-                     borderRadius: "6px",
-                     textDecoration: "none",
-                     fontSize: "0.85rem",
-                     fontWeight: "700",
-                  }}
-               >
+               {/* 🔥 Pura links design ab dynamic active path check karega */}
+               <Link href="/news" style={getLinkStyle("/news", true)}>
                   📰 Top 5 News
                </Link>
 
-               <Link
-                  href="/"
-                  style={{
-                     color: "#e2e8f0",
-                     textDecoration: "none",
-                     fontSize: "0.85rem",
-                     fontWeight: "600",
-                  }}
-               >
+               <Link href="/" style={getLinkStyle("/")}>
                   Home
                </Link>
 
                <Link
-                  href="/bigha-to-kanal" // Adjust if your paths are different
-                  style={{
-                     color: "#e2e8f0",
-                     textDecoration: "none",
-                     fontSize: "0.85rem",
-                     fontWeight: "600",
-                     whiteSpace: "nowrap", // Prevents text splitting into 2 messy lines
-                  }}
+                  href="/bigha-to-kanal"
+                  style={getLinkStyle("/bigha-to-kanal")}
                >
                   Bigha to Kanal
                </Link>
 
-               <Link
-                  href="/sqft-to-gaj"
-                  style={{
-                     color: "#e2e8f0",
-                     textDecoration: "none",
-                     fontSize: "0.85rem",
-                     fontWeight: "600",
-                     whiteSpace: "nowrap",
-                  }}
-               >
+               <Link href="/sqft-to-gaj" style={getLinkStyle("/sqft-to-gaj")}>
                   Sqft to Gaj
                </Link>
 
                <Link
                   href="/kanal-to-acre"
-                  style={{
-                     color: "#e2e8f0",
-                     textDecoration: "none",
-                     fontSize: "0.85rem",
-                     fontWeight: "600",
-                     whiteSpace: "nowrap",
-                  }}
+                  style={getLinkStyle("/kanal-to-acre")}
                >
                   Kanal to Acre
                </Link>
