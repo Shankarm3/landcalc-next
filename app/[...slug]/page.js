@@ -6,7 +6,7 @@ function capitalize(str) {
    return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-// Regional context data to make descriptions unique and highly relevant for SEO
+// Regional context data to make descriptions unique and highly relevant for SEO changes committed
 const unitDescriptions = {
    sqft: "Square Feet (sq ft) is the standard international benchmark used across modern real estate layouts and apartment floor plans.",
    gaj: "Gaj (or Square Yard) is a traditional land measurement unit widely utilized across urban housing societies and local plots in Northern India.",
