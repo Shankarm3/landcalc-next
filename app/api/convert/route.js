@@ -6,7 +6,7 @@ export async function GET(request) {
   const fromCurrency = searchParams.get("from") || "USD";
   
   // ✅ FIXED: True backticks template literal pointing to the free open API
-  const url = `https://er-api.com{fromCurrency}`;
+  const url = "https://er-api.com" + fromCurrency;
   
   console.log(`Target Routing API URL => ${url}`);
 
