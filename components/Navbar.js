@@ -80,6 +80,11 @@ export default function Navbar() {
                   📰 Top 5 News
                </Link>
 
+               {/* FIXED: Added Global Money Converter navigation tab route link */}
+               <Link href="/money" style={getButtonStyle("/money")}>
+                  💱 Currency Converter
+               </Link>
+
                <Link
                   href="/bigha-to-kanal"
                   style={getButtonStyle("/bigha-to-kanal")}
