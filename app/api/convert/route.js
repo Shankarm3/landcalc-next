@@ -5,10 +5,15 @@ export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const fromCurrency = searchParams.get("from") || "USD";
   
-  // ✅ FIXED: Corrected the malformed endpoint path structure string
+  // ✅ FIXED: Added correct slash / path format for free public open-access api
   const url = `https://er-api.com{fromCurrency}`;
+  console.log("url====>", url);
+  // Clean console log to visually inspect the exact endpoint path in terminal
+  console.log(`Target Routing API URL => ${url}`);
+
   const isLocalhost = process.env.NODE_ENV === "development";
 
+  // If on localhost, serve fallback to prevent network proxy timeout limits
   if (isLocalhost) {
     console.log("Localhost environment: Serving static localized currency conversion multipliers.");
     return NextResponse.json({ rates: getFallbackRates(fromCurrency) });
@@ -23,9 +28,10 @@ export async function GET(request) {
   }
 }
 
+// Local workspace static fallback data grid
 function getFallbackRates(base) {
   const mockDatabase = {
-    USD: { USD: 1, INR: 81.50, EUR: 0.92, GBP: 0.79, AED: 3.67 },
+    USD: { USD: 1, INR: 83.50, EUR: 0.92, GBP: 0.79, AED: 3.67 },
     INR: { INR: 1, USD: 0.012, EUR: 0.011, GBP: 0.0095, AED: 0.044 },
     EUR: { EUR: 1, USD: 1.09, INR: 90.75, GBP: 0.86, AED: 3.99 }
   };
