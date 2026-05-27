@@ -3,34 +3,30 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar"; 
 
 export default function NewsPage() {
-  // 1. Define states for dynamic tracking data
   const [newsItems, setNewsItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [btnBg, setBtnBg] = useState("#3182ce");
 
-  // 2. Create the network fetch handler function
   const fetchLiveNews = async () => {
     setLoading(true);
     setError(null);
     try {
-      // 🚀 This executes the HTTP request to your local route handler
       const response = await fetch("/api/news");
       const data = await response.json();
       
       if (response.ok && data.articles) {
         setNewsItems(data.articles);
       } else {
-        setError("Could not load latest streams. Server returned an empty dataset.");
+        setError("Could not retrieve real-time tracking data streams.");
       }
     } catch (err) {
-      setError("Network breakdown. Failed to communicate with tracking server.");
+      setError("Network connectivity error. Could not sync stream fields.");
     } finally {
       setLoading(false);
     }
   };
 
-  // 3. Trigger the fetch function automatically on component mount
   useEffect(() => {
     fetchLiveNews();
   }, []);
@@ -46,7 +42,7 @@ export default function NewsPage() {
             Live Client Feed
           </span>
           <h1 style={{ fontSize: "clamp(2rem, 5vw, 2.5rem)", fontWeight: "800", color: "#ffffff", letterSpacing: "-0.025em", marginBottom: "0.5rem", textShadow: "0 2px 4px rgba(0,0,0,0.4)" }}>
-            Today's Top 5 News Streams
+            Today's Top News Streams
           </h1>
           <p style={{ fontSize: "0.95rem", color: "#e2e8f0", maxWidth: "500px", margin: "0 auto", lineHeight: "1.4", textShadow: "0 1px 2px rgba(0,0,0,0.3)" }}>
             Live automated micro-feed tracking national news, global shifts, and Indian infrastructure.
@@ -78,7 +74,7 @@ export default function NewsPage() {
           </button>
         </div>
 
-        {/* System Messages */}
+        {/* Messaging Logs Output Layer */}
         {error && (
           <div style={{ color: "#fc8181", textAlign: "center", marginBottom: "2rem", fontWeight: "600" }}>
             ❌ {error}
@@ -96,7 +92,6 @@ export default function NewsPage() {
           {!loading && newsItems.map((item, index) => (
             <div key={index} style={{ backgroundColor: "rgba(255, 255, 255, 0.97)", padding: "1.75rem max(1.25rem, 3vw)", borderRadius: "12px", boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.15)", backdropFilter: "blur(10px)", border: "1px solid rgba(226, 232, 240, 0.8)", position: "relative", boxSizing: "border-box" }}>
               
-              {/* Circular Badge Counter Indicator */}
               <span style={{ position: "absolute", top: "1.5rem", left: "-10px", backgroundColor: "#3182ce", color: "#ffffff", width: "24px", height: "24px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.8rem", fontWeight: "700", boxShadow: "0 2px 4px rgba(0,0,0,0.2)" }}>
                 {index + 1}
               </span>
@@ -114,7 +109,7 @@ export default function NewsPage() {
                 {item.title}
               </h2>
               <p style={{ fontSize: "0.9rem", color: "#4a5568", lineHeight: "1.5", marginBottom: "1rem" }}>
-                {item.description || "No description provided."}
+                {item.description || "No content summary abstract tracking details provided."}
               </p>
               <a href={item.url} target="_blank" rel="noopener noreferrer" style={{ color: "#3182ce", textDecoration: "none", fontSize: "0.85rem", fontWeight: "600", display: "inline-block" }}>
                 Read full article via source →
