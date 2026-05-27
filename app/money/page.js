@@ -34,9 +34,17 @@ export default function MoneyConverter() {
 
     // 2. Compute conversion calculation values cleanly on render calculations
     useEffect(() => {
-    const currentRate = rates[toCurrency] || 1;
-    setResult((parseFloat(amount || 0) * currentRate).toFixed(2));
+        const currentRate = rates[toCurrency] || 1;
+        const numericAmount = parseFloat(amount);
+        
+        if (isNaN(numericAmount)) {
+            setResult("0.00");
+            return;
+        }
+        
+        setResult((numericAmount * currentRate).toFixed(2));
     }, [rates, toCurrency, amount]);
+
 
 
   // Swaps selected currencies instantly
