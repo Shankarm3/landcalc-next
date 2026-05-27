@@ -28,7 +28,7 @@ export async function GET(request) {
 
 function getFallbackRates(base) {
   const mockDatabase = {
-    USD: { USD: 1, INR: 83.50, EUR: 0.92, GBP: 0.79, AED: 3.67 },
+    USD: { USD: 1, INR: 89.50, EUR: 0.92, GBP: 0.79, AED: 3.67 },
     INR: { INR: 1, USD: 0.012, EUR: 0.011, GBP: 0.0095, AED: 0.044 },
     EUR: { EUR: 1, USD: 1.09, INR: 90.75, GBP: 0.86, AED: 3.99 }
   };
