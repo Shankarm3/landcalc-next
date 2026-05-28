@@ -3,29 +3,31 @@
 import { useState, useEffect } from "react";
 
 export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
+   // 🚀 CRITICAL ROUTE NORMALIZER: Fallback raw "bigha" routing strings to an explicit key match
+   const normalizeUnit = (unit) => unit === "bigha" ? "bigha_standard" : unit;
+
    const [value, setValue] = useState("");
-   const [fromUnit, setFromUnit] = useState(defaultFrom);
-   const [toUnit, setToUnit] = useState(defaultTo);
+   const [fromUnit, setFromUnit] = useState(normalizeUnit(defaultFrom));
+   const [toUnit, setToUnit] = useState(normalizeUnit(defaultTo));
    const [result, setResult] = useState(0);
    const [isAnimating, setIsAnimating] = useState(false);
-   const [isOpen, setIsOpen] = useState(true); // Default open configuration
+   const [isOpen, setIsOpen] = useState(true);
 
-   // ✅ UPDATED MAP: Use a clean shorter name string for mobile rendering layout layers
    const sqftMap = {
       sqft: { label: "Square Feet", baseValue: 1 },
       gaj: { label: "Gaj (Sq Yard)", baseValue: 9 },
       kanal: { label: "Kanal", baseValue: 5445 },
+      bigha_standard: { label: "Standard Bigha", baseValue: 27000 },
       bigha_up: { label: "UP Pucca Bigha", baseValue: 27225 },
       bigha_uk: { label: "Uttarakhand Bigha", baseValue: 6804 },
-      bigha_standard: { label: "Standard Bigha", baseValue: 27000 },
       bigha_bengal: { label: "Bengal/Kacha Bigha", baseValue: 14400 },
       acre: { label: "Acre", baseValue: 43560 },
       hectare: { label: "Hectare", baseValue: 107639 },
    };
 
    useEffect(() => {
-      setFromUnit(defaultFrom);
-      setToUnit(defaultTo);
+      setFromUnit(normalizeUnit(defaultFrom));
+      setToUnit(normalizeUnit(defaultTo));
    }, [defaultFrom, defaultTo]);
 
    const performConversion = (inputValue, from, to) => {
@@ -208,8 +210,9 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
                         </thead>
                         <tbody>
                            {Object.keys(sqftMap).map((key, index) => {
-                              const inputInSqft = parseFloat(value) * sqftMap[fromUnit].baseValue;
-                              const rowValue = inputInSqft / sqftMap[key].baseValue;
+                              const currentFrom = sqftMap[fromUnit] ? fromUnit : "sqft";
+                              const inputInSqft = parseFloat(value) * (sqftMap[currentFrom]?.baseValue || 1);
+                              const rowValue = inputInSqft / (sqftMap[key]?.baseValue || 1);
                               return (
                                  <tr key={key} style={{ borderBottom: "1px solid #edf2f7", backgroundColor: index % 2 === 0 ? "#ffffff" : "#fdfdfd" }}>
                                     <td style={{ padding: "0.4rem 0.75rem", color: "#4a5568", fontWeight: "500" }}>{sqftMap[key].label}</td>

@@ -6,12 +6,11 @@ export async function GET(request) {
   const fromCurrency = searchParams.get("from") || "USD";
   
   // 1. PLACE YOUR REAL API KEY HERE
-  const API_KEY = "b974105d41ecc10436777183"; 
-  const url = `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/${fromCurrency}`;
+  const url = `https://v6.exchangerate-api.com/v6/${process.env.API_KEY_CURRENCY}/latest/${fromCurrency}`;
   
-  console.log(`Target Routing API URL => ${url}`);
+  console.log(`Target Routing API URL CURRENCY => ${url}`);
 
-  const isLocalhost = false; // process.env.NODE_ENV === "development";
+  const isLocalhost = process.env.NODE_ENV === "development";
 
   if (isLocalhost) {
     console.log("Localhost environment: Serving static localized currency conversion multipliers.");

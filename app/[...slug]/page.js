@@ -1,5 +1,8 @@
+import { notFound } from "next/navigation";
 import Navbar from "../../components/Navbar";
 import Converter from "../../components/Converter";
+
+const ALLOWED_UNITS = ["sqft", "gaj", "kanal", "bigha", "acre", "hectare"];
 
 function capitalize(str) {
    if (!str) return "";
@@ -12,8 +15,7 @@ const unitDescriptions = {
    kanal: "Kanal is a classic regional land measurement unit commonly used in northern states like Punjab and Haryana, traditionally equating to 1/8 of an acre.",
    bigha: "Bigha is a highly popular traditional land unit used widely across states like Uttar Pradesh, Punjab, Bihar, and Rajasthan. Note that its size can vary significantly by region.",
    acre: "Acre is an internationally recognized standard unit used globally and across India to measure large agricultural fields and extensive commercial land tracts.",
-   hectare:
-      "Hectare (ha) is the official metric system unit used by Indian state governments and land registry departments (Bhulekh) to document agricultural property deeds.",
+   hectare: "Hectare (ha) is the official metric system unit used by Indian state governments and land registry departments (Bhulekh) to document agricultural property deeds.",
 };
 
 export async function generateMetadata({ params }) {
@@ -23,6 +25,10 @@ export async function generateMetadata({ params }) {
 
    const from = parts[0] || "sqft";
    const to = parts[1] || "gaj";
+
+   if (!ALLOWED_UNITS.includes(from) || !ALLOWED_UNITS.includes(to)) {
+      return { title: "Page Not Found | LandCalc" };
+   }
 
    return {
       title: `${capitalize(from)} to ${capitalize(to)} Converter | LandCalc`,
@@ -37,6 +43,10 @@ export default async function ConversionPage({ params }) {
 
    const from = parts[0] || "sqft";
    const to = parts[1] || "gaj";
+
+   if (!ALLOWED_UNITS.includes(from) || !ALLOWED_UNITS.includes(to) || from === to) {
+      notFound();
+   }
 
    return (
       <div style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
@@ -61,10 +71,7 @@ export default async function ConversionPage({ params }) {
                      textShadow: "0 2px 4px rgba(0,0,0,0.5)",
                   }}
                >
-                  Smart{" "}
-                  <span style={{ color: "#63b3ed" }}>{capitalize(from)}</span>{" "}
-                  to <span style={{ color: "#63b3ed" }}>{capitalize(to)}</span>{" "}
-                  Converter
+                  Smart <span style={{ color: "#63b3ed" }}>{capitalize(from)}</span> to <span style={{ color: "#63b3ed" }}>{capitalize(to)}</span> Converter
                </h1>
                <p
                   style={{
@@ -88,8 +95,7 @@ export default async function ConversionPage({ params }) {
                   backgroundColor: "rgba(255, 255, 255, 0.98)",
                   padding: "2.5rem 2rem",
                   borderRadius: "16px",
-                  boxShadow:
-                     "0 20px 25px -5px rgba(0, 0, 0, 0.25), 0 10px 10px -5px rgba(0, 0, 0, 0.2)",
+                  boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.25), 0 10px 10px -5px rgba(0, 0, 0, 0.2)",
                   border: "1px solid rgba(226, 232, 240, 0.8)",
                   backdropFilter: "blur(10px)",
                }}
@@ -132,9 +138,7 @@ export default async function ConversionPage({ params }) {
                      When dealing with regional real estate transactions or
                      managing agricultural land paperwork in India, converting
                      value metrics accurately is critical to prevent errors.
-                     {unitDescriptions[from]
-                        ? ` ${unitDescriptions[from]}`
-                        : ""}
+                     {unitDescriptions[from] ? ` ${unitDescriptions[from]}` : ""}
                   </p>
 
                   <p
@@ -147,9 +151,7 @@ export default async function ConversionPage({ params }) {
                   >
                      By shifting your measurements into local {capitalize(to)},
                      you transition across regional scale standards smoothly.
-                     {unitDescriptions[to]
-                        ? ` ${unitDescriptions[to]}`
-                        : ""}{" "}
+                     {unitDescriptions[to] ? ` ${unitDescriptions[to]}` : ""}{" "}
                      Use our custom-built computational layout above to execute
                      calculations instantly without manual error risks.
                   </p>
