@@ -8,7 +8,7 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
    const [toUnit, setToUnit] = useState(defaultTo);
    const [result, setResult] = useState(0);
    const [isAnimating, setIsAnimating] = useState(false);
-   const [isOpen, setIsOpen] = useState(false); // Default to false for extra mobile compactness
+   const [isOpen, setIsOpen] = useState(false);
 
    const sqftMap = {
       sqft: { label: "Square Feet (Sqft)", baseValue: 1 },
@@ -55,7 +55,6 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
       setToUnit(temp);
    };
 
-   // Compact Mobile styles
    const inputStyle = {
       width: "100%",
       padding: "0.5rem 0.75rem",
@@ -76,13 +75,13 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
       marginBottom: "0.2rem",
    };
    return (
-      <div style={{ textAlign: "left", fontFamily: "system-ui, sans-serif", padding: "0.5rem" }}>
-         <h2 style={{ fontSize: "1.1rem", fontWeight: "700", color: "#1a202c", marginBottom: "0.75rem" }}>
+      <div style={{ textAlign: "left", fontFamily: "system-ui, sans-serif", padding: "0.25rem" }}>
+         <h2 style={{ fontSize: "1.1rem", fontWeight: "700", color: "#1a202c", marginBottom: "0.5rem" }}>
             Area Converter
          </h2>
 
-         {/* Value Input */}
-         <div style={{ marginBottom: "0.75rem" }}>
+         {/* Value Input Section */}
+         <div style={{ marginBottom: "0.5rem" }}>
             <label style={labelStyle}>Enter Measurement Value</label>
             <input
                type="number"
@@ -93,10 +92,10 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
             />
          </div>
 
-         {/* Units Selectors Grid */}
-         <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "end", gap: "0.5rem", marginBottom: "1rem" }}>
+         {/* Single Row Units Selectors Grid with Inline Balanced Labels */}
+         <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", gap: "0.4rem", marginBottom: "0.75rem" }}>
             <div>
-               <label style={labelStyle}>From Unit</label>
+               <label style={labelStyle}>From</label>
                <select value={fromUnit} onChange={(e) => setFromUnit(e.target.value)} style={inputStyle}>
                   {Object.keys(sqftMap).map((key) => (
                      <option key={key} value={key}>{sqftMap[key].label}</option>
@@ -104,14 +103,14 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
                </select>
             </div>
 
-            {/* Compact Swap Button */}
-            <div style={{ paddingBottom: "2px" }}>
+            {/* Vertical Alignment Fix for Swap Button */}
+            <div style={{ paddingTop: "1.1rem" }}>
                <button
                   onClick={handleSwap}
                   type="button"
                   style={{
-                     backgroundColor: "#e2e8f0", border: "none", width: "32px", height: "32px", borderRadius: "50%",
-                     cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.9rem"
+                     backgroundColor: "#e2e8f0", border: "none", width: "30px", height: "30px", borderRadius: "50%",
+                     cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.8rem"
                   }}
                >
                   🔄
@@ -119,7 +118,7 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
             </div>
 
             <div>
-               <label style={labelStyle}>To Unit</label>
+               <label style={labelStyle}>To</label>
                <select value={toUnit} onChange={(e) => setToUnit(e.target.value)} style={inputStyle}>
                   {Object.keys(sqftMap).map((key) => (
                      <option key={key} value={key}>{sqftMap[key].label}</option>
@@ -128,12 +127,12 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
             </div>
          </div>
 
-         {/* Compact Result Box */}
-         <div style={{ backgroundColor: "#f7fafc", padding: "0.75rem", borderRadius: "8px", textAlign: "center", border: "1px dashed #e2e8f0", marginBottom: "1rem" }}>
-            <h3 style={{ fontSize: "0.7rem", color: "#718096", textTransform: "uppercase", marginBottom: "0.1rem", letterSpacing: "0.05em" }}>
+         {/* Micro Result Display Container */}
+         <div style={{ backgroundColor: "#f7fafc", padding: "0.5rem", borderRadius: "8px", textAlign: "center", border: "1px dashed #e2e8f0", marginBottom: "0.5rem" }}>
+            <h3 style={{ fontSize: "0.65rem", color: "#718096", textTransform: "uppercase", marginBottom: "0.05rem", letterSpacing: "0.05em" }}>
                Converted Value
             </h3>
-            <div style={{ fontSize: "1.8rem", fontWeight: "800", color: isAnimating ? "#3182ce" : "#2d3748", transform: isAnimating ? "scale(1.05)" : "scale(1)", transition: "all 0.1s ease", display: "inline-block" }}>
+            <div style={{ fontSize: "1.6rem", fontWeight: "800", color: isAnimating ? "#3182ce" : "#2d3748", transform: isAnimating ? "scale(1.03)" : "scale(1)", transition: "all 0.1s ease", display: "inline-block" }}>
                {result}
             </div>
          </div>
@@ -146,29 +145,29 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
                   type="button"
                   style={{
                      width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center",
-                     padding: "0.5rem 0.75rem", backgroundColor: "#f8fafc", border: "none", borderBottom: isOpen ? "1px solid #e2e8f0" : "none",
+                     padding: "0.4rem 0.6rem", backgroundColor: "#f8fafc", border: "none", borderBottom: isOpen ? "1px solid #e2e8f0" : "none",
                      cursor: "pointer", outline: "none"
                   }}
                >
-                  <span style={{ fontSize: "0.75rem", fontWeight: "700", color: "#2d3748", textTransform: "uppercase" }}>
+                  <span style={{ fontSize: "0.7rem", fontWeight: "700", color: "#2d3748", textTransform: "uppercase" }}>
                      All-Unit Overview ({isOpen ? "Hide" : "Show"})
                   </span>
-                  <span style={{ fontSize: "0.7rem", color: "#718096", transform: isOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}>
+                  <span style={{ fontSize: "0.65rem", color: "#718096", transform: isOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}>
                      ▼
                   </span>
                </button>
 
                {isOpen && (
                   <div style={{ overflowX: "auto" }}>
-                     <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.8rem" }}>
+                     <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.75rem" }}>
                         <tbody>
                            {Object.keys(sqftMap).map((key, index) => {
                               const inputInSqft = parseFloat(value) * sqftMap[fromUnit].baseValue;
                               const rowValue = inputInSqft / sqftMap[key].baseValue;
                               return (
                                  <tr key={key} style={{ borderBottom: "1px solid #edf2f7", backgroundColor: index % 2 === 0 ? "#ffffff" : "#fdfdfd" }}>
-                                    <td style={{ padding: "0.4rem 0.75rem", color: "#4a5568" }}>{sqftMap[key].label}</td>
-                                    <td style={{ padding: "0.4rem 0.75rem", color: "#1a202c", fontWeight: "700", textAlign: "right" }}>
+                                    <td style={{ padding: "0.35rem 0.6rem", color: "#4a5568" }}>{sqftMap[key].label}</td>
+                                    <td style={{ padding: "0.35rem 0.6rem", color: "#1a202c", fontWeight: "700", textAlign: "right" }}>
                                        {rowValue < 0.01 ? rowValue.toFixed(4) : rowValue.toFixed(2)}
                                     </td>
                                  </tr>
