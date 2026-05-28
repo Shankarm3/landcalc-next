@@ -15,12 +15,12 @@ export const metadata = {
    title: "LandCalc Next - Smart Indian Land Area Converter & Live News",
    description:
       "Convert regional land units like UP Pucca Bigha, Uttarakhand Bigha, Kanal, Gaj, and Acre instantly. Track live real estate and infrastructure news updates.",
-   metadataBase: new URL("https://landcalc-next-4yjv.vercel.app"),
+   // 🌐 FIXED: Corrected domain pointer to align exactly with your production Vercel deployment URL
+   metadataBase: new URL("https://landcalc-next.vercel.app"),
    verification: {
       google: "WA9fxD0RBGa09jcn8sIhmjR83J3375loo5A5bqTTfC4",
    },
 };
-
 export default function RootLayout({ children }) {
    return (
       <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
                   background-color: #1a202c !important;
                }
             `}} />
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6510564496638335" crossorigin="anonymous"></script>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6510564496638335" crossOrigin="anonymous"></script>
          </head>
          <body>
             {children}
