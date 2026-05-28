@@ -9,7 +9,7 @@ export default function Navbar() {
    const navigationLinks = [
       { label: "Home", icon: "🔥", path: "/" },
       { label: "Top 5 News", icon: "📰", path: "/news" },
-      { label: "Currency Converter", icon: "💸", path: "/currency-converter" }
+      { label: "Currency Converter", icon: "💸", path: "/money" }
    ];
 
    return (

@@ -10,8 +10,9 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
    const [isAnimating, setIsAnimating] = useState(false);
    const [isOpen, setIsOpen] = useState(true); // Default open configuration
 
+   // ✅ UPDATED MAP: Use a clean shorter name string for mobile rendering layout layers
    const sqftMap = {
-      sqft: { label: "Square Feet (Sqft)", baseValue: 1 },
+      sqft: { label: "Square Feet", baseValue: 1 },
       gaj: { label: "Gaj (Sq Yard)", baseValue: 9 },
       kanal: { label: "Kanal", baseValue: 5445 },
       bigha_up: { label: "UP Pucca Bigha", baseValue: 27225 },
