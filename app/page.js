@@ -10,43 +10,44 @@ export default function Home() {
       unit === "sqft" ? "Sqft" : unit.charAt(0).toUpperCase() + unit.slice(1);
 
    return (
-      // Cleaned wrapper component inheriting layout style
       <div style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
          <Navbar />
 
          <div
             style={{
-               padding: "4rem 1rem max(5vh, 2rem)",
+               // ✅ FIXED: Drastically reduced top padding from 4rem down to 1rem
+               padding: "1rem 0.75rem max(3vh, 1.5rem)",
                maxWidth: "1200px",
                margin: "0 auto",
             }}
          >
             {/* Main Header / Intro */}
-            <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            {/* ✅ FIXED: Squeezed bottom margin from 3rem down to 1rem to remove big gap above card */}
+            <div style={{ textAlign: "center", marginBottom: "1rem" }}>
                <h1
                   style={{
-                     fontSize: "clamp(2rem, 5vw, 2.75rem)",
+                     // ✅ FIXED: Scaled text down slightly for immediate viewport entry
+                     fontSize: "clamp(1.6rem, 4vw, 2.25rem)",
                      fontWeight: "800",
                      letterSpacing: "-0.025em",
-                     marginBottom: "0.75rem",
+                     marginBottom: "0.25rem",
                      color: "#ffffff",
-                     textShadow: "0 2px 5px rgba(0,0,0,0.5)",
+                     textShadow: "0 2px 4px rgba(0,0,0,0.5)",
                   }}
                >
-                  Land<span style={{ color: "#63b3ed" }}>Calc</span> Area
-                  Converter
+                  Land<span style={{ color: "#63b3ed" }}>Calc</span> Area Converter
                </h1>
                <p
                   style={{
-                     fontSize: "1.1rem",
+                     // ✅ FIXED: Compressed size and spacing
+                     fontSize: "0.95rem",
                      color: "#e2e8f0",
-                     maxWidth: "600px",
+                     maxWidth: "500px",
                      margin: "0 auto",
-                     textShadow: "0 1px 3px rgba(0,0,0,0.4)",
+                     textShadow: "0 1px 2px rgba(0,0,0,0.4)",
                   }}
                >
-                  Convert between regional Indian land units like Bigha, Kanal,
-                  Gaj, Acre, and Square Feet instantly.
+                  Convert between regional Indian land units like Bigha, Kanal, Gaj, Acre, and Square Feet instantly.
                </p>
             </div>
 
@@ -54,12 +55,13 @@ export default function Home() {
             <div
                style={{
                   maxWidth: "520px",
-                  margin: "0 auto 4rem",
+                  // ✅ FIXED: Reduced vertical padding from 2.5rem/2rem down to 1rem
+                  // ✅ FIXED: Shrank bottom margin to keep footer close
+                  margin: "0 auto 1.5rem",
                   backgroundColor: "rgba(255, 255, 255, 0.98)",
-                  padding: "2.5rem 2rem",
-                  borderRadius: "16px",
-                  boxShadow:
-                     "0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2)",
+                  padding: "1rem", 
+                  borderRadius: "12px",
+                  boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.3)",
                   backdropFilter: "blur(12px)",
                   boxSizing: "border-box",
                }}
@@ -74,15 +76,15 @@ export default function Home() {
                   .seo-link {
                      color: #2d3748 !important; 
                      text-decoration: none;
-                     font-size: 0.95rem;
+                     font-size: 0.85rem;
                      transition: all 0.2s ease;
-                     padding: 0.5rem;
+                     padding: 0.35rem 0.5rem;
                      border-radius: 6px;
                   }
                   .seo-link:hover {
                      color: #3182ce !important;
                      background-color: #edf2f7;
-                     padding-left: 0.75rem;
+                     padding-left: 0.6rem;
                   }
                `,
                }}
@@ -93,8 +95,9 @@ export default function Home() {
                style={{
                   maxWidth: "100%",
                   backgroundColor: "rgba(255, 255, 255, 0.96)",
-                  padding: "2.5rem",
-                  borderRadius: "16px",
+                  // ✅ FIXED: Shrank footer padding down to keep page light
+                  padding: "1.25rem",
+                  borderRadius: "12px",
                   boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.15)",
                   backdropFilter: "blur(8px)",
                   border: "1px solid rgba(226, 232, 240, 0.8)",
@@ -103,12 +106,12 @@ export default function Home() {
             >
                <h3
                   style={{
-                     fontSize: "1.25rem",
+                     fontSize: "1rem",
                      fontWeight: "700",
-                     marginBottom: "1.5rem",
+                     marginBottom: "1rem",
                      color: "#1a202c",
                      borderBottom: "2px solid #edf2f7",
-                     paddingBottom: "0.75rem",
+                     paddingBottom: "0.5rem",
                   }}
                >
                   Popular Land Measurements & Conversions
@@ -117,9 +120,8 @@ export default function Home() {
                <div
                   style={{
                      display: "grid",
-                     gridTemplateColumns:
-                        "repeat(auto-fill, minmax(240px, 1fr))",
-                     gap: "0.75rem",
+                     gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
+                     gap: "0.5rem",
                   }}
                >
                   {units.flatMap((from) =>
@@ -136,7 +138,7 @@ export default function Home() {
                            );
                         }
                         return null;
-                     }),
+                      }),
                   )}
                </div>
             </footer>
