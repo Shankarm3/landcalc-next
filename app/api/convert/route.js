@@ -5,12 +5,13 @@ export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const fromCurrency = searchParams.get("from") || "USD";
   
-  // ✅ FIXED: True backticks template literal pointing to the free open API
-  const url = "https://er-api.com" + fromCurrency;
+  // 1. PLACE YOUR REAL API KEY HERE
+  const API_KEY = "b974105d41ecc10436777183"; 
+  const url = `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/USD`;
   
   console.log(`Target Routing API URL => ${url}`);
 
-  const isLocalhost = process.env.NODE_ENV === "development";
+  const isLocalhost = false; // process.env.NODE_ENV === "development";
 
   if (isLocalhost) {
     console.log("Localhost environment: Serving static localized currency conversion multipliers.");
@@ -19,7 +20,11 @@ export async function GET(request) {
 
   try {
     const response = await axios.get(url, { timeout: 4000 });
-    return NextResponse.json({ rates: response.data.rates || {} });
+    
+    // The API wraps exchange data inside the "conversion_rates" field
+    const rates = response.data.conversion_rates || response.data.rates || {};
+    
+    return NextResponse.json({ rates });
   } catch (error) {
     console.warn("Production fallback sequence initiated:", error.message);
     return NextResponse.json({ rates: getFallbackRates(fromCurrency) });
