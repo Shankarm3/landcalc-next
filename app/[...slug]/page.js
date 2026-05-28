@@ -103,15 +103,18 @@ export default async function ConversionPage({ params }) {
                <Converter defaultFrom={from} defaultTo={to} />
             </div>
             {/* Informational SEO Container */}
-            <div style={{ maxWidth: "768px", margin: "4rem auto 0" }}>
+            {/* Informational SEO Container */}
+            <div style={{ maxWidth: "768px", margin: "4rem auto 0", width: "100%" }}>
                <section
                   style={{
                      backgroundColor: "rgba(255, 255, 255, 0.96)",
-                     padding: "2.5rem",
+                     // 📱 FIX: Using responsive padding to maximize screen real estate on mobile devices
+                     padding: "2rem max(1rem, 3vw)",
                      borderRadius: "16px",
                      boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.15)",
                      border: "1px solid rgba(226, 232, 240, 0.8)",
                      backdropFilter: "blur(8px)",
+                     boxSizing: "border-box"
                   }}
                >
                   <h2
@@ -170,52 +173,55 @@ export default async function ConversionPage({ params }) {
                      </h3>
                      <div
                         style={{
-                           overflowX: "auto",
+                           overflowX: "auto", // Enables horizontal scrolling container
                            borderRadius: "8px",
                            border: "1px solid #e2e8f0",
                            backgroundColor: "#ffffff",
+                           WebkitOverflowScrolling: "touch" // Guarantees smooth touch momentum on iOS devices
                         }}
                      >
                         <table
                            style={{
                               width: "100%",
+                              minWidth: "500px", // 🚀 FIX: Prevents columns from squishing under 500px wide
                               borderCollapse: "collapse",
                               textAlign: "left",
-                              fontSize: "0.95rem",
+                              fontSize: "0.9rem",
                            }}
                         >
                            <thead>
                               <tr style={{ backgroundColor: "#f7fafc", borderBottom: "2px solid #e2e8f0" }}>
-                                 <th style={{ padding: "12px 16px", fontWeight: "600", color: "#4a5568" }}>Standard Unit</th>
-                                 <th style={{ padding: "12px 16px", fontWeight: "600", color: "#4a5568" }}>Equivalent Value</th>
-                                 <th style={{ padding: "12px 16px", fontWeight: "600", color: "#4a5568" }}>Regional Prevalence</th>
+                                 {/* 📱 FIX: Snugger 10px 12px padding prevents unnecessary empty column bloating */}
+                                 <th style={{ padding: "10px 12px", fontWeight: "600", color: "#4a5568" }}>Standard Unit</th>
+                                 <th style={{ padding: "10px 12px", fontWeight: "600", color: "#4a5568" }}>Equivalent Value</th>
+                                 <th style={{ padding: "10px 12px", fontWeight: "600", color: "#4a5568" }}>Regional Prevalence</th>
                               </tr>
                            </thead>
                            <tbody style={{ color: "#2d3748" }}>
                               <tr style={{ borderBottom: "1px solid #edf2f7" }}>
-                                 <td style={{ padding: "12px 16px", fontWeight: "500" }}>Square Feet (sq ft)</td>
-                                 <td style={{ padding: "12px 16px" }}>107,639 sq ft</td>
-                                 <td style={{ padding: "12px 16px" }}>All India (Urban Layouts)</td>
+                                 <td style={{ padding: "10px 12px", fontWeight: "500" }}>Square Feet (sq ft)</td>
+                                 <td style={{ padding: "10px 12px" }}>107,639 sq ft</td>
+                                 <td style={{ padding: "10px 12px" }}>All India (Urban Layouts)</td>
                               </tr>
                               <tr style={{ borderBottom: "1px solid #edf2f7" }}>
-                                 <td style={{ padding: "12px 16px", fontWeight: "500" }}>Acre</td>
-                                 <td style={{ padding: "12px 16px" }}>2.471 Acres</td>
-                                 <td style={{ padding: "12px 16px" }}>Global / National Standard</td>
+                                 <td style={{ padding: "10px 12px", fontWeight: "500" }}>Acre</td>
+                                 <td style={{ padding: "10px 12px" }}>2.471 Acres</td>
+                                 <td style={{ padding: "10px 12px" }}>Global / National Standard</td>
                               </tr>
                               <tr style={{ borderBottom: "1px solid #edf2f7" }}>
-                                 <td style={{ padding: "12px 16px", fontWeight: "500" }}>Bigha (UP/Bihar)</td>
+                                 <td style={{ padding: "10px 12px", fontWeight: "500" }}>Bigha (UP/Bihar)</td>
                                  <td style={{ padding: "12px 16px" }}>~3.95 Bigha</td>
-                                 <td style={{ padding: "12px 16px" }}>Northern & Central India</td>
+                                 <td style={{ padding: "10px 12px" }}>Northern & Central India</td>
                               </tr>
                               <tr style={{ borderBottom: "1px solid #edf2f7" }}>
-                                 <td style={{ padding: "12px 16px", fontWeight: "500" }}>Gaj (Sq Yards)</td>
-                                 <td style={{ padding: "12px 16px" }}>11,959.9 Gaj</td>
-                                 <td style={{ padding: "12px 16px" }}>North India Housing Societies</td>
+                                 <td style={{ padding: "10px 12px", fontWeight: "500" }}>Gaj (Sq Yards)</td>
+                                 <td style={{ padding: "10px 12px" }}>11,959.9 Gaj</td>
+                                 <td style={{ padding: "10px 12px" }}>North India Housing Societies</td>
                               </tr>
                               <tr>
-                                 <td style={{ padding: "12px 16px", fontWeight: "500" }}>Kanal</td>
-                                 <td style={{ padding: "12px 16px" }}>19.76 Kanal</td>
-                                 <td style={{ padding: "12px 16px" }}>Punjab, Haryana, J&K</td>
+                                 <td style={{ padding: "10px 12px", fontWeight: "500" }}>Kanal</td>
+                                 <td style={{ padding: "10px 12px" }}>19.76 Kanal</td>
+                                 <td style={{ padding: "10px 12px" }}>Punjab, Haryana, J&K</td>
                               </tr>
                            </tbody>
                         </table>
