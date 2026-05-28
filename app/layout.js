@@ -13,14 +13,13 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
    title: "LandCalc Next - Smart Indian Land Area Converter & Live News",
-   description:
-      "Convert regional land units like UP Pucca Bigha, Uttarakhand Bigha, Kanal, Gaj, and Acre instantly. Track live real estate and infrastructure news updates.",
-   // 🌐 FIXED: Corrected domain pointer to align exactly with your production Vercel deployment URL
-   metadataBase: new URL("https://landcalc-next.vercel.app"),
+   description: "Convert regional land units like UP Pucca Bigha, Uttarakhand Bigha, Kanal, Gaj, and Acre instantly. Track live real estate and infrastructure news updates.",
+   metadataBase: new URL("https://landcalc-next.vercel.app"), //https://landcalc-next.vercel.app/ this is actual website url
    verification: {
       google: "WA9fxD0RBGa09jcn8sIhmjR83J3375loo5A5bqTTfC4",
    },
 };
+
 export default function RootLayout({ children }) {
    return (
       <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
