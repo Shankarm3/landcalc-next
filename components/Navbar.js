@@ -84,24 +84,6 @@ export default function Navbar() {
                <Link href="/money" style={getButtonStyle("/money")}>
                   💱 Currency Converter
                </Link>
-
-               <Link
-                  href="/bigha-to-kanal"
-                  style={getButtonStyle("/bigha-to-kanal")}
-               >
-                  Bigha to Kanal
-               </Link>
-
-               <Link href="/sqft-to-gaj" style={getButtonStyle("/sqft-to-gaj")}>
-                  Sqft to Gaj
-               </Link>
-
-               <Link
-                  href="/kanal-to-acre"
-                  style={getButtonStyle("/kanal-to-acre")}
-               >
-                  Kanal to Acre
-               </Link>
             </div>
          </div>
       </nav>
