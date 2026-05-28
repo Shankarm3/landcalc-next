@@ -9,12 +9,10 @@ export default function Home() {
    const formatLabel = (unit) =>
       unit === "sqft" ? "Sqft" : unit.charAt(0).toUpperCase() + unit.slice(1);
 
-
    return (
-      // Modern glowing neon grid pattern simulation layer background
       <div style={{ 
          fontFamily: "system-ui, sans-serif", 
-         backgroundColor: "#0a0f1d", // Rich cyber slate black background
+         backgroundColor: "#0a0f1d", 
          backgroundImage: "radial-gradient(circle at top right, rgba(49, 130, 206, 0.12), transparent 40%), radial-gradient(circle at central left, rgba(99, 179, 237, 0.05), transparent 30%)",
          minHeight: "100vh"
       }}>
@@ -40,62 +38,63 @@ export default function Home() {
 
             {/* 🔥 ULTRALEAN CYBER GLASS CALCULATOR CONTAINER CARD */}
             <div style={{
-               maxWidth: "460px", // Snug spatial container fit
+               maxWidth: "460px",
                margin: "0 auto 2rem",
                backgroundColor: "rgba(255, 255, 255, 0.98)",
                padding: "1rem 1.25rem", 
                borderRadius: "16px",
-               // Outer drop shadow combined with light geometric stroke line borders
                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.05)",
                boxSizing: "border-box"
             }}>
                <Converter />
             </div>
-
-            {/* Upgraded CSS Injector Hook with modern hover cards matrix style floating metrics */}
+            {/* Upgraded CSS Injector Hook with matching neon hover styles */}
             <style dangerouslySetInnerHTML={{ __html: `
                .seo-link {
-                  color: #4a5568 !important; 
+                  color: #94a3b8 !important; 
                   text-decoration: none;
-                  font-size: 0.85rem;
+                  font-size: 0.8rem;
                   font-weight: 600;
                   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-                  padding: 0.4rem 0.6rem;
+                  padding: 0.5rem 0.75rem;
                   border-radius: 8px;
-                  background-color: #f8fafc;
-                  border: 1px solid #edf2f7;
+                  background-color: rgba(255, 255, 255, 0.02);
+                  border: 1px solid rgba(255, 255, 255, 0.05);
                   display: flex;
                   align-items: center;
-                  gap: 0.25rem;
+                  gap: 0.35rem;
+                  box-sizing: border-box;
                }
                .seo-link:hover {
-                  color: #3182ce !important;
-                  background-color: #ffffff;
-                  border-color: #bee3f8;
+                  color: #63b3ed !important;
+                  background-color: rgba(49, 130, 206, 0.1);
+                  border-color: #3182ce;
                   transform: translateY(-2px);
-                  box-shadow: 0 4px 6px -1px rgba(49, 130, 206, 0.08);
+                  box-shadow: 0 4px 12px rgba(49, 130, 206, 0.15);
                }
             `}} />
 
-            {/* Modern SEO Interactive Data Card Panel */}
+            {/* Modern Frosted Dark SEO Interactive Data Card Panel */}
             <footer style={{
                maxWidth: "100%",
-               backgroundColor: "rgba(255, 255, 255, 0.99)",
-               padding: "1.25rem",
+               backgroundColor: "rgba(15, 23, 42, 0.6)",
+               padding: "1.5rem max(1rem, 3vw)",
                borderRadius: "14px",
-               boxShadow: "0 10px 30px -5px rgba(0, 0, 0, 0.2)",
-               border: "1px solid #e2e8f0",
+               boxShadow: "0 10px 30px -5px rgba(0, 0, 0, 0.3)",
+               border: "1px solid rgba(255, 255, 255, 0.05)",
+               backdropFilter: "blur(8px)",
                boxSizing: "border-box"
             }}>
-               <h3 style={{ fontSize: "0.95rem", fontWeight: "800", color: "#1a202c", marginBottom: "1rem", letterSpacing: "-0.01em", borderLeft: "3px solid #3182ce", paddingLeft: "0.5rem" }}>
-                  Regional System Matrix Pipelines
+               <h3 style={{ fontSize: "0.9rem", fontWeight: "800", color: "#ffffff", marginBottom: "1rem", letterSpacing: "0.025em", textTransform: "uppercase", borderLeft: "3px solid #3182ce", paddingLeft: "0.5rem" }}>
+                  Popular Land Conversion Networks
                </h3>
 
-               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(170px, 1fr))", gap: "0.4rem" }}>
+               {/* Responsive clean layout columns matching mobile breakpoints */}
+               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(145px, 1fr))", gap: "0.5rem" }}>
                   {units.flatMap((from) =>
                      units.map((to) => from !== to ? (
                         <Link key={`${from}-to-${to}`} href={`/${from}-to-${to}`} className="seo-link">
-                           <span style={{ color: "#3182ce", fontSize: "0.75rem" }}>⚡</span> {formatLabel(from)} → {formatLabel(to)}
+                           <span style={{ color: "#3182ce", fontSize: "0.7rem" }}>⚡</span> {formatLabel(from)} to {formatLabel(to)}
                         </Link>
                      ) : null)
                   )}
@@ -105,5 +104,4 @@ export default function Home() {
          </div>
       </div>
    );
-
 }
