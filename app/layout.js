@@ -38,6 +38,7 @@ export default function RootLayout({ children }) {
                   background-color: #1a202c !important;
                }
             `}} />
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6510564496638335" crossorigin="anonymous"></script>
          </head>
          <body>
             {children}
