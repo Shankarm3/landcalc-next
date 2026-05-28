@@ -1,8 +1,8 @@
 export default async function sitemap() {
    const baseUrl = "https://landcalc-next-4yjv.vercel.app";
-   const currentDate = new Date();
+   const currentDate = new Date().toISOString(); // Using ISO strings is recommended for sitemaps
 
-   // 1. Define your explicit static core application pages
+   // 1. Define explicit static core application pages
    const routes = [
       {
          url: baseUrl,
@@ -13,7 +13,7 @@ export default async function sitemap() {
       {
          url: `${baseUrl}/news`,
          lastModified: currentDate,
-         changeFrequency: "daily", // News updates often, search bots should crawl daily
+         changeFrequency: "daily", 
          priority: 0.8,
       },
       {
@@ -23,8 +23,7 @@ export default async function sitemap() {
          priority: 0.8,
       },
    ];
-
-   // 2. Define standard slugs used in your layout matrix
+   // 2. Define standard slugs matching your catch-all converter options
    const units = ["sqft", "gaj", "kanal", "bigha", "acre", "hectare"];
 
    // 3. Generate all cross-conversion landing page variants dynamically

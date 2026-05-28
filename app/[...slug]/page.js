@@ -39,7 +39,6 @@ export default async function ConversionPage({ params }) {
    const to = parts[1] || "gaj";
 
    return (
-      // 🔥 Cleaned core wrapper wrapper to let root layout's image breathe
       <div style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
          <Navbar />
 
@@ -58,7 +57,7 @@ export default async function ConversionPage({ params }) {
                      fontWeight: "800",
                      letterSpacing: "-0.025em",
                      marginBottom: "0.75rem",
-                     color: "#ffffff", // 🔥 Pure white contrast adjustment
+                     color: "#ffffff",
                      textShadow: "0 2px 4px rgba(0,0,0,0.5)",
                   }}
                >
@@ -70,7 +69,7 @@ export default async function ConversionPage({ params }) {
                <p
                   style={{
                      fontSize: "1.1rem",
-                     color: "#e2e8f0", // 🔥 Light slate gray for clean legibility over background
+                     color: "#e2e8f0",
                      maxWidth: "600px",
                      margin: "0 auto",
                      textShadow: "0 1px 2px rgba(0,0,0,0.4)",
@@ -86,7 +85,7 @@ export default async function ConversionPage({ params }) {
                style={{
                   maxWidth: "520px",
                   margin: "0 auto",
-                  backgroundColor: "rgba(255, 255, 255, 0.98)", // 🔥 Frosted glass alpha sync
+                  backgroundColor: "rgba(255, 255, 255, 0.98)",
                   padding: "2.5rem 2rem",
                   borderRadius: "16px",
                   boxShadow:
@@ -97,12 +96,11 @@ export default async function ConversionPage({ params }) {
             >
                <Converter defaultFrom={from} defaultTo={to} />
             </div>
-
             {/* Informational SEO Container */}
             <div style={{ maxWidth: "768px", margin: "4rem auto 0" }}>
                <section
                   style={{
-                     backgroundColor: "rgba(255, 255, 255, 0.96)", // 🔥 Translucent informational pane
+                     backgroundColor: "rgba(255, 255, 255, 0.96)",
                      padding: "2.5rem",
                      borderRadius: "16px",
                      boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.15)",
@@ -173,7 +171,7 @@ export default async function ConversionPage({ params }) {
                            overflowX: "auto",
                            borderRadius: "8px",
                            border: "1px solid #e2e8f0",
-                           backgroundColor: "#ffffff", // Keeps the content matrix table solid and sharp
+                           backgroundColor: "#ffffff",
                         }}
                      >
                         <table
@@ -185,92 +183,37 @@ export default async function ConversionPage({ params }) {
                            }}
                         >
                            <thead>
-                              <tr style={{ backgroundColor: "#f7fafc" }}>
-                                 <th
-                                    style={{
-                                       padding: "1rem",
-                                       borderBottom: "2px solid #e2e8f0",
-                                       color: "#4a5568",
-                                       fontWeight: "600",
-                                    }}
-                                 >
-                                    State / Region
-                                 </th>
-                                 <th
-                                    style={{
-                                       padding: "1rem",
-                                       borderBottom: "2px solid #e2e8f0",
-                                       color: "#4a5568",
-                                       fontWeight: "600",
-                                    }}
-                                 >
-                                    Official Conversion Value
-                                 </th>
+                              <tr style={{ backgroundColor: "#f7fafc", borderBottom: "2px solid #e2e8f0" }}>
+                                 <th style={{ padding: "12px 16px", fontWeight: "600", color: "#4a5568" }}>Standard Unit</th>
+                                 <th style={{ padding: "12px 16px", fontWeight: "600", color: "#4a5568" }}>Equivalent Value</th>
+                                 <th style={{ padding: "12px 16px", fontWeight: "600", color: "#4a5568" }}>Regional Prevalence</th>
                               </tr>
                            </thead>
-                           <tbody style={{ color: "#4a5568" }}>
-                              <tr
-                                 style={{ transition: "background-color 0.2s" }}
-                              >
-                                 <td
-                                    style={{
-                                       padding: "1rem",
-                                       borderBottom: "1px solid #e2e8f0",
-                                    }}
-                                 >
-                                    <b>Uttar Pradesh (UP)</b>
-                                 </td>
-                                 <td
-                                    style={{
-                                       padding: "1rem",
-                                       borderBottom: "1px solid #e2e8f0",
-                                    }}
-                                 >
-                                    1 Hectare is officially documented as
-                                    exactly <b>3.9537 Pucca Bighas</b>.
-                                 </td>
+                           <tbody style={{ color: "#2d3748" }}>
+                              <tr style={{ borderBottom: "1px solid #edf2f7" }}>
+                                 <td style={{ padding: "12px 16px", fontWeight: "500" }}>Square Feet (sq ft)</td>
+                                 <td style={{ padding: "12px 16px" }}>107,639 sq ft</td>
+                                 <td style={{ padding: "12px 16px" }}>All India (Urban Layouts)</td>
                               </tr>
-                              <tr
-                                 style={{ transition: "background-color 0.2s" }}
-                              >
-                                 <td
-                                    style={{
-                                       padding: "1rem",
-                                       borderBottom: "1px solid #e2e8f0",
-                                    }}
-                                 >
-                                    <b>Punjab & Haryana</b>
-                                 </td>
-                                 <td
-                                    style={{
-                                       padding: "1rem",
-                                       borderBottom: "1px solid #e2e8f0",
-                                    }}
-                                 >
-                                    1 Hectare equals exactly{" "}
-                                    <b>19.7684 Kanals</b>.
-                                 </td>
+                              <tr style={{ borderBottom: "1px solid #edf2f7" }}>
+                                 <td style={{ padding: "12px 16px", fontWeight: "500" }}>Acre</td>
+                                 <td style={{ padding: "12px 16px" }}>2.471 Acres</td>
+                                 <td style={{ padding: "12px 16px" }}>Global / National Standard</td>
                               </tr>
-                              <tr
-                                 style={{ transition: "background-color 0.2s" }}
-                              >
-                                 <td
-                                    style={{
-                                       padding: "1rem",
-                                       borderBottom: "1px solid #e2e8f0",
-                                    }}
-                                 >
-                                    <b>Global Standard</b>
-                                 </td>
-                                 <td
-                                    style={{
-                                       padding: "1rem",
-                                       borderBottom: "1px solid #e2e8f0",
-                                    }}
-                                 >
-                                    1 Hectare equals <b>2.471 Acres</b> or{" "}
-                                    <b>107,639 Square Feet</b>.
-                                 </td>
+                              <tr style={{ borderBottom: "1px solid #edf2f7" }}>
+                                 <td style={{ padding: "12px 16px", fontWeight: "500" }}>Bigha (UP/Bihar)</td>
+                                 <td style={{ padding: "12px 16px" }}>~3.95 Bigha</td>
+                                 <td style={{ padding: "12px 16px" }}>Northern & Central India</td>
+                              </tr>
+                              <tr style={{ borderBottom: "1px solid #edf2f7" }}>
+                                 <td style={{ padding: "12px 16px", fontWeight: "500" }}>Gaj (Sq Yards)</td>
+                                 <td style={{ padding: "12px 16px" }}>11,959.9 Gaj</td>
+                                 <td style={{ padding: "12px 16px" }}>North India Housing Societies</td>
+                              </tr>
+                              <tr>
+                                 <td style={{ padding: "12px 16px", fontWeight: "500" }}>Kanal</td>
+                                 <td style={{ padding: "12px 16px" }}>19.76 Kanal</td>
+                                 <td style={{ padding: "12px 16px" }}>Punjab, Haryana, J&K</td>
                               </tr>
                            </tbody>
                         </table>
