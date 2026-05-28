@@ -8,6 +8,8 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
    const [toUnit, setToUnit] = useState(defaultTo);
    const [result, setResult] = useState(0);
    const [isAnimating, setIsAnimating] = useState(false);
+   // 🔥 NEW STATE: Controls whether the matrix view table remains hidden or expanded
+   const [isOpen, setIsOpen] = useState(true);
 
    // Official core multiplier mapping config base (Sqft)
    const sqftMap = {
@@ -127,35 +129,55 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
             </div>
          </div>
 
+         {/* 🔥 COLLAPSIBLE BLOCK MODULE */}
          {value && !isNaN(value) && parseFloat(value) > 0 && (
-            <div style={{ marginTop: "2rem" }}>
-               <h3 style={{ fontSize: "0.9rem", fontWeight: "700", color: "#2d3748", marginBottom: "0.75rem", textTransform: "uppercase" }}>
-                  All-Unit Conversion Overview
-               </h3>
-               <div style={{ overflowX: "auto", border: "1px solid #e2e8f0", borderRadius: "8px" }}>
-                  <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.9rem" }}>
-                     <thead>
-                        <tr style={{ backgroundColor: "#f8fafc", borderBottom: "2px solid #e2e8f0" }}>
-                           <th style={{ padding: "0.75rem 1rem", textAlign: "left", color: "#4a5568" }}>Unit Type</th>
-                           <th style={{ padding: "0.75rem 1rem", textAlign: "right", color: "#4a5568" }}>Calculated Output</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        {Object.keys(sqftMap).map((key, index) => {
-                           const inputInSqft = parseFloat(value) * sqftMap[fromUnit].baseValue;
-                           const rowValue = inputInSqft / sqftMap[key].baseValue;
-                           return (
-                              <tr key={key} style={{ borderBottom: "1px solid #edf2f7", backgroundColor: index % 2 === 0 ? "#ffffff" : "#fdfdfd" }}>
-                                 <td style={{ padding: "0.75rem 1rem", color: "#4a5568" }}>{sqftMap[key].label}</td>
-                                 <td style={{ padding: "0.75rem 1rem", color: "#1a202c", fontWeight: "700", textAlign: "right" }}>
-                                    {rowValue < 0.01 ? rowValue.toFixed(5) : rowValue.toFixed(2)}
-                                 </td>
-                              </tr>
-                           );
-                        })}
-                     </tbody>
-                  </table>
-               </div>
+            <div style={{ marginTop: "2rem", border: "1px solid #e2e8f0", borderRadius: "8px", overflow: "hidden" }}>
+               
+               {/* Clickable Header Button Box */}
+               <button 
+                  onClick={() => setIsOpen(!isOpen)}
+                  type="button"
+                  style={{
+                     width: "100%", display: "flex", justifyContent: "between", alignItems: "center", justifyContent: "space-between",
+                     padding: "0.75rem 1rem", backgroundColor: "#f8fafc", border: "none", borderBottom: isOpen ? "1px solid #e2e8f0" : "none",
+                     cursor: "pointer", outline: "none", textAlign: "left"
+                  }}
+               >
+                  <span style={{ fontSize: "0.9rem", fontWeight: "700", color: "#2d3748", textTransform: "uppercase" }}>
+                     All-Unit Conversion Overview
+                  </span>
+                  <span style={{ fontSize: "0.8rem", color: "#718096", transition: "transform 0.2s ease", transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}>
+                     ▼
+                  </span>
+               </button>
+
+               {/* Table Content Segment: Dynamic display layout visibility hooks */}
+               {isOpen && (
+                  <div style={{ overflowX: "auto" }}>
+                     <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.9rem" }}>
+                        <thead>
+                           <tr style={{ backgroundColor: "#fcfdfd", borderBottom: "1px solid #e2e8f0" }}>
+                              <th style={{ padding: "0.6rem 1rem", textAlign: "left", color: "#4a5568", fontSize: "0.8rem" }}>Unit Type</th>
+                              <th style={{ padding: "0.6rem 1rem", textAlign: "right", color: "#4a5568", fontSize: "0.8rem" }}>Calculated Output</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           {Object.keys(sqftMap).map((key, index) => {
+                              const inputInSqft = parseFloat(value) * sqftMap[fromUnit].baseValue;
+                              const rowValue = inputInSqft / sqftMap[key].baseValue;
+                              return (
+                                 <tr key={key} style={{ borderBottom: "1px solid #edf2f7", backgroundColor: index % 2 === 0 ? "#ffffff" : "#fdfdfd" }}>
+                                    <td style={{ padding: "0.75rem 1rem", color: "#4a5568" }}>{sqftMap[key].label}</td>
+                                    <td style={{ padding: "0.75rem 1rem", color: "#1a202c", fontWeight: "700", textAlign: "right" }}>
+                                       {rowValue < 0.01 ? rowValue.toFixed(5) : rowValue.toFixed(2)}
+                                    </td>
+                                 </tr>
+                              );
+                           })}
+                        </tbody>
+                     </table>
+                  </div>
+               )}
             </div>
          )}
       </div>
