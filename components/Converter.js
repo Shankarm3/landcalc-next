@@ -15,7 +15,7 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
       setToUnit(defaultTo);
    }, [defaultFrom, defaultTo]);
 
-   // 🔥 Core Calculation Logic Isolated
+   // Core Calculation Logic Isolated
    const performConversion = (inputValue, from, to) => {
       if (!inputValue || isNaN(inputValue)) {
          setResult(0);
@@ -41,7 +41,7 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
       setResult(finalValue.toFixed(2));
    };
 
-   // 🔥 REAL-TIME ENGINE: Automatically calculates whenever inputs change
+   // REAL-TIME ENGINE: Automatically calculates whenever inputs change
    useEffect(() => {
       performConversion(value, fromUnit, toUnit);
    }, [value, fromUnit, toUnit]);
@@ -54,18 +54,38 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
       }
    }, [isAnimating]);
 
+   // 🔥 Instantly swaps the selected dropdown values
+   const handleSwap = () => {
+      const temp = fromUnit;
+      setFromUnit(toUnit);
+      setToUnit(temp);
+   };
+
    const inputStyle = {
       width: "100%",
       padding: "0.75rem 1rem",
       fontSize: "1rem",
       border: "1px solid #cbd5e0",
       borderRadius: "8px",
-      marginBottom: "1.25rem",
       outline: "none",
       boxSizing: "border-box",
       color: "#2d3748",
       backgroundColor: "#f8fafc",
    };
+
+   const optionDropdowns = (
+      <>
+         <option value="sqft">Square Feet (Sqft)</option>
+         <option value="gaj">Gaj (Sq Yard)</option>
+         <option value="kanal">Kanal</option>
+         <option value="bigha_up">UP Pucca Bigha</option>
+         <option value="bigha_uk">Uttarakhand Bigha</option>
+         <option value="bigha_standard">Standard Bigha</option>
+         <option value="bigha_bengal">Bengal/Kacha Bigha</option>
+         <option value="acre">Acre</option>
+         <option value="hectare">Hectare</option>
+      </>
+   );
 
    return (
       <div style={{ textAlign: "left", fontFamily: "system-ui, -apple-system, sans-serif" }}>
@@ -73,58 +93,82 @@ export default function Converter({ defaultFrom = "sqft", defaultTo = "gaj" }) {
             Area Converter
          </h2>
 
-         <label style={{ display: "block", fontSize: "0.85rem", fontWeight: "600", color: "#4a5568", marginBottom: "0.4rem" }}>
-            Enter Measurement Value
-         </label>
-         <input
-            type="number"
-            placeholder="e.g. 5"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            style={inputStyle}
-         />
+         <div style={{ marginBottom: "1.25rem" }}>
+            <label style={{ display: "block", fontSize: "0.85rem", fontWeight: "600", color: "#4a5568", marginBottom: "0.4rem" }}>
+               Enter Measurement Value
+            </label>
+            <input
+               type="number"
+               placeholder="e.g. 5"
+               value={value}
+               onChange={(e) => setValue(e.target.value)}
+               style={inputStyle}
+            />
+         </div>
 
          {/* From Unit */}
-         <label style={{ display: "block", fontSize: "0.85rem", fontWeight: "600", color: "#4a5568", marginBottom: "0.4rem" }}>
-            From Unit
-         </label>
-         <select
-            value={fromUnit}
-            onChange={(e) => setFromUnit(e.target.value)}
-            style={inputStyle}
-         >
-            <option value="sqft">Square Feet (Sqft)</option>
-            <option value="gaj">Gaj (Sq Yard)</option>
-            <option value="kanal">Kanal</option>
-            <option value="bigha_up">UP Pucca Bigha</option>
-            <option value="bigha_uk">Uttarakhand Bigha</option>
-            <option value="bigha_standard">Standard Bigha</option>
-            <option value="bigha_bengal">Bengal/Kacha Bigha</option>
-            <option value="acre">Acre</option>
-            <option value="hectare">Hectare</option>
-         </select>
+         <div style={{ marginBottom: "0.75rem" }}>
+            <label style={{ display: "block", fontSize: "0.85rem", fontWeight: "600", color: "#4a5568", marginBottom: "0.4rem" }}>
+               From Unit
+            </label>
+            <select
+               value={fromUnit}
+               onChange={(e) => setFromUnit(e.target.value)}
+               style={inputStyle}
+            >
+               {optionDropdowns}
+            </select>
+         </div>
+
+         {/* 🔥 Interactive Swap Visual Bridge */}
+         <div style={{ display: "flex", justifyContent: "center", margin: "0.25rem 0" }}>
+            <button
+               onClick={handleSwap}
+               type="button"
+               title="Swap Units"
+               style={{
+                  backgroundColor: "#e2e8f0",
+                  border: "none",
+                  width: "36px",
+                  height: "36px",
+                  borderRadius: "50%",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "1.1rem",
+                  transition: "transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s",
+                  boxShadow: "0 2px 4px rgba(0,0,0,0.05)"
+               }}
+               onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "#cbd5e0";
+                  e.currentTarget.style.transform = "rotate(180deg) scale(1.08)";
+               }}
+               onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "#e2e8f0";
+                  e.currentTarget.style.transform = "rotate(0deg) scale(1)";
+               }}
+               onMouseDown={(e) => e.currentTarget.style.transform = "rotate(180deg) scale(0.95)"}
+            >
+               🔄
+            </button>
+         </div>
 
          {/* To Unit */}
-         <label style={{ display: "block", fontSize: "0.85rem", fontWeight: "600", color: "#4a5568", marginBottom: "0.4rem" }}>
-            To Unit
-         </label>
-         <select
-            value={toUnit}
-            onChange={(e) => setToUnit(e.target.value)}
-            style={inputStyle}
-         >
-            <option value="sqft">Square Feet (Sqft)</option>
-            <option value="gaj">Gaj (Sq Yard)</option>
-            <option value="kanal">Kanal</option>
-            <option value="bigha_up">UP Pucca Bigha</option>
-            <option value="bigha_uk">Uttarakhand Bigha</option>
-            <option value="bigha_standard">Standard Bigha</option>
-            <option value="bigha_bengal">Bengal/Kacha Bigha</option>
-            <option value="acre">Acre</option>
-            <option value="hectare">Hectare</option>
-         </select>
+         <div style={{ marginBottom: "1.5rem" }}>
+            <label style={{ display: "block", fontSize: "0.85rem", fontWeight: "600", color: "#4a5568", marginBottom: "0.4rem" }}>
+               To Unit
+            </label>
+            <select
+               value={toUnit}
+               onChange={(e) => setToUnit(e.target.value)}
+               style={inputStyle}
+            >
+               {optionDropdowns}
+            </select>
+         </div>
 
-         {/* Button retained for UX/Click confidence and manual execution */}
+         {/* Manual execution action button */}
          <button
             onClick={() => performConversion(value, fromUnit, toUnit)}
             style={{
