@@ -6,85 +6,73 @@ import { usePathname } from "next/navigation";
 export default function Navbar() {
    const pathname = usePathname();
 
-   // Helper function jo har ek button ko dynamic background aur text styling dega
-   const getButtonStyle = (path) => {
-      const isActive = pathname === path;
-
-      return {
-         color: "#ffffff",
-         // 🔥 Active tab bright blue hoga, baaki saare clean slate gray buttons dikhenge
-         backgroundColor: isActive ? "#2b6cb0" : "#2d3748",
-         padding: "0.4rem 0.75rem",
-         borderRadius: "6px",
-         textDecoration: "none",
-         fontSize: "0.85rem",
-         fontWeight: isActive ? "700" : "600",
-         whiteSpace: "nowrap",
-         border: isActive ? "1px solid #63b3ed" : "1px solid #4a5568",
-         boxShadow: isActive ? "0 2px 4px rgba(49, 130, 206, 0.2)" : "none",
-         transition: "all 0.2s ease",
-         display: "inline-block",
-      };
-   };
+   const navigationLinks = [
+      { label: "Home", icon: "🔥", path: "/" },
+      { label: "Top 5 News", icon: "📰", path: "/news" },
+      { label: "Currency Converter", icon: "💸", path: "/currency-converter" }
+   ];
 
    return (
-      <nav
-         style={{
-            backgroundColor: "#1a202c",
-            padding: "1rem",
-            boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-            boxSizing: "border-box",
-            width: "100%",
-         }}
-      >
-         <div
-            style={{
-               maxWidth: "1000px",
-               margin: "0 auto",
-               display: "flex",
-               flexDirection: "row",
-               flexWrap: "wrap",
-               alignItems: "center",
-               justifyContent: "space-between",
-               gap: "1.25rem",
-            }}
-         >
-            {/* Logo / Brand Name */}
-            <Link
-               href="/"
-               style={{
-                  color: "#ffffff",
-                  textDecoration: "none",
-                  fontSize: "1.4rem",
-                  fontWeight: "800",
-                  letterSpacing: "-0.05em",
-               }}
-            >
+      <nav style={{
+         display: "flex",
+         flexDirection: "column",
+         gap: "0.75rem",
+         padding: "0.75rem 1rem",
+         backgroundColor: "#0d1527",
+         borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
+         fontFamily: "system-ui, -apple-system, sans-serif"
+      }}>
+         {/* Top branding section */}
+         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <Link href="/" style={{ textDecoration: "none", fontWeight: "900", color: "#ffffff", fontSize: "1.25rem", letterSpacing: "-0.02em" }}>
                Land<span style={{ color: "#3182ce" }}>Calc</span>
             </Link>
+            
+            {/* Version Badge to balance the top row space */}
+            <span style={{ fontSize: "0.65rem", color: "#63b3ed", backgroundColor: "rgba(49, 130, 206, 0.15)", padding: "0.2rem 0.5rem", borderRadius: "10px", fontWeight: "700" }}>
+               v2.0 Live
+            </span>
+         </div>
 
-            {/* 🔥 Buttons Container Layout */}
-            <div
-               style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  alignItems: "center",
-                  gap: "0.6rem", // Buttons ke beech ka spacing tight aur clean rakha hai
-               }}
-            >
-               <Link href="/" style={getButtonStyle("/")}>
-                  🏠 Home
-               </Link>
-
-               <Link href="/news" style={getButtonStyle("/news")}>
-                  📰 Top 5 News
-               </Link>
-
-               {/* FIXED: Added Global Money Converter navigation tab route link */}
-               <Link href="/money" style={getButtonStyle("/money")}>
-                  💱 Currency Converter
-               </Link>
-            </div>
+         {/* 🔥 Dynamic Flex Grid for Tab Targets */}
+         <div style={{
+            display: "flex",
+            gap: "0.35rem",
+            width: "100%",
+            boxSizing: "border-box"
+         }}>
+            {navigationLinks.map((link) => {
+               const isActive = pathname === link.path;
+               return (
+                  <Link
+                     key={link.label}
+                     href={link.path}
+                     style={{
+                        flex: 1, // Forces all 3 buttons to stay proportional on one line
+                        display: "flex",
+                        flexDirection: "column", // Stack icon above text for high-end mobile app feel
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "0.2rem",
+                        padding: "0.4rem 0.2rem",
+                        borderRadius: "8px",
+                        fontSize: "0.7rem", // Clean micro-typography
+                        fontWeight: "700",
+                        textDecoration: "none",
+                        textAlign: "center",
+                        whiteSpace: "nowrap",
+                        transition: "all 0.2s ease",
+                        color: isActive ? "#ffffff" : "#94a3b8",
+                        backgroundColor: isActive ? "#3182ce" : "rgba(255,255,255,0.03)",
+                        border: isActive ? "1px solid #4299e1" : "1px solid rgba(255,255,255,0.05)",
+                        boxShadow: isActive ? "0 4px 12px rgba(49, 130, 206, 0.3)" : "none"
+                     }}
+                  >
+                     <span style={{ fontSize: "0.9rem" }}>{link.icon}</span>
+                     <span>{link.label}</span>
+                  </Link>
+               );
+            })}
          </div>
       </nav>
    );
