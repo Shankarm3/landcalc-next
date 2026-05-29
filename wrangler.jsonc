@@ -24,7 +24,7 @@
     "enabled": true
   },
   "vars": {
-    "NEWS_API_KEY": "b974105d41ecc10436777183",
-    "EXCHANGE_RATE_KEY": "fd703237c7afe02808e10e5c642bb4b9"
+    "GNEWS_API_KEY": "b974105d41ecc10436777183",
+    "API_KEY_CURRENCY": "fd703237c7afe02808e10e5c642bb4b9"
   }
 }
