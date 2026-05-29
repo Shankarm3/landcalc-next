@@ -6,10 +6,12 @@ import { usePathname } from "next/navigation";
 export default function Navbar() {
    const pathname = usePathname();
 
+   // Added the Plot Area option into your core navigation matrix array
    const navigationLinks = [
       { label: "Home", icon: "🔥", path: "/" },
+      { label: "Plot Area", icon: "📐", path: "/plot-calc" },
       { label: "Top 5 News", icon: "📰", path: "/news" },
-      { label: "Currency Converter", icon: "💸", path: "/money" }
+      { label: "Currency", icon: "💸", path: "/money" }
    ];
 
    return (
@@ -48,15 +50,15 @@ export default function Navbar() {
                      key={link.label}
                      href={link.path}
                      style={{
-                        flex: 1, // Forces all 3 buttons to stay proportional on one line
+                        flex: 1, // Automatically balances all 4 items horizontally
                         display: "flex",
-                        flexDirection: "column", // Stack icon above text for high-end mobile app feel
+                        flexDirection: "column", 
                         alignItems: "center",
                         justifyContent: "center",
                         gap: "0.2rem",
-                        padding: "0.4rem 0.2rem",
+                        padding: "0.4rem 0.15rem", // Micro-padded for text fitment safety
                         borderRadius: "8px",
-                        fontSize: "0.7rem", // Clean micro-typography
+                        fontSize: "0.68rem", // Tweaked slightly to protect ultra-narrow viewports
                         fontWeight: "700",
                         textDecoration: "none",
                         textAlign: "center",
