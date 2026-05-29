@@ -25,7 +25,7 @@ export default function ContactUs() {
           <h2 style={styles.h2}>Email Support</h2>
           <p style={styles.p}>For general inquiries, calculation issues, or technical support, drop us an email at:</p>
           {/* ⚠️ CHANGE THIS to your real email address so users/Google can contact you */}
-          <a href="mailto:your.realreal.email@gmail.com" style={styles.emailLink}>
+          <a href="mailto:your.realnewreal.email@gmail.com" style={styles.emailLink}>
             your.real.email@gmail.com
           </a>
         </div>
