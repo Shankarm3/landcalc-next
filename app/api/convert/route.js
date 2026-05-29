@@ -5,7 +5,7 @@ export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const fromCurrency = searchParams.get("from") || "USD";
   
-  // 1. PLACE YOUR REAL API KEY HERE
+  // 1. PLACE YOUR REAL API KEY HERE Comments
   const url = `https://v6.exchangerate-api.com/v6/${process.env.API_KEY_CURRENCY}/latest/${fromCurrency}`;
   
   console.log(`Target Routing API URL CURRENCY => ${url}`);
