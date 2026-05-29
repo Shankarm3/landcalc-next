@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Converter from "../components/Converter";
+import AppContent from "@/components/AppContent";
 
 export default function Home() {
    const units = ["sqft", "gaj", "kanal", "bigha", "acre", "hectare"];
@@ -100,7 +101,7 @@ export default function Home() {
                   )}
                </div>
             </footer>
-
+            <AppContent />
          </div>
       </div>
    );
